@@ -88,7 +88,11 @@ function mig_get(string $url): ?array {
     curl_close($ch);
 
     if ($body === false || $code >= 400) {
-        fwrite(STDERR, sprintf("  ! %s (HTTP %d%s)\n", $url, $code, $err ? ", $err" : ''));
+        $reason = sprintf('HTTP %d%s', $code, $err !== '' ? ", $err" : '');
+        fwrite(STDERR, sprintf("  ! %s (%s)\n", $url, $reason));
+        if (($GLOBALS['firstError'] ?? '') === '') {
+            $GLOBALS['firstError'] = $reason;
+        }
         return null;
     }
     return [(string) $body, $type];
@@ -220,6 +224,7 @@ $queue   = [$base];
 $seen    = [];
 $records = [];
 $imagesSaved = [];
+$firstError = '';
 
 fwrite(STDOUT, "Обхождам $base\n");
 
@@ -349,6 +354,23 @@ while ($queue && count($records) < $maxPages) {
     if ($delayMs > 0) {
         usleep($delayMs * 1000);
     }
+}
+
+// Нула страници означава, че сайтът не е достъпен — спираме с грешка, за да не
+// продължи конвейерът към импорт върху празен файл.
+if (!$records) {
+    fwrite(STDERR, "\nНе е свалена нито една страница от $base\n");
+    if ($firstError !== '') {
+        fwrite(STDERR, "Причина: $firstError\n");
+    }
+    if (str_contains($firstError, '403')) {
+        fwrite(STDERR,
+            "\nHTTP 403 при CONNECT обикновено значи, че мрежата, от която пускаш,\n"
+            . "не пропуска този домейн (корпоративно прокси или egress политика).\n"
+            . "Пусни командата от машина с пряк достъп до сайта.\n");
+    }
+    fwrite(STDERR, "\nНищо не е записано.\n");
+    exit(2);
 }
 
 // Сваляне на изображенията.

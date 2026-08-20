@@ -21,3 +21,6 @@ node_modules/
 # Environment
 .env
 .env.local
+
+# Migration working directory (crawled content and downloaded images)
+migration/

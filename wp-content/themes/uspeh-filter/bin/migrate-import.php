@@ -62,8 +62,14 @@ if (!is_readable($jsonPath)) {
 }
 
 $data = json_decode((string) file_get_contents($jsonPath), true);
-if (!is_array($data) || empty($data['pages'])) {
+if (!is_array($data)) {
     WP_CLI::error("Не мога да прочета $jsonPath.");
+}
+if (empty($data['pages'])) {
+    WP_CLI::error(
+        "$jsonPath не съдържа страници — обхождането не е свалило нищо.\n"
+        . "  Пусни отново bin/migrate-fetch.php от машина с достъп до стария сайт."
+    );
 }
 
 /** Съпоставяне стар адрес → цел. Липсващите редове се третират като 'page'. */
