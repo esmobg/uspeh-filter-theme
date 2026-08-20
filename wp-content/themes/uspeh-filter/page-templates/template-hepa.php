@@ -4,6 +4,10 @@
  */
 get_header();
 
+if (uspeh_maybe_render_block_page(false)) {
+    return;
+}
+
 $hero = uspeh_theme_image('slide2.jpg');
 ?>
 

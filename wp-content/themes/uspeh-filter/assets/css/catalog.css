@@ -207,6 +207,111 @@
     pointer-events: none;
 }
 
+/* === РЕЗУЛТАТИ ОТ КАТАЛОГА (двигателни филтри) === */
+.engine-result {
+    display: grid;
+    grid-template-columns: 120px 1fr auto;
+    gap: 1.5rem;
+    align-items: center;
+    padding: 1.25rem;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-sm);
+    transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.engine-result + .engine-result { margin-top: 1rem; }
+
+.engine-result:hover {
+    border-color: var(--color-primary);
+    box-shadow: var(--shadow);
+}
+
+.engine-result__left { align-self: start; }
+
+.engine-result__img {
+    border: 1px solid var(--color-border-light);
+    background: var(--color-bg-alt);
+    overflow: hidden;
+}
+
+.engine-result__img img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+    object-fit: cover;
+    transition: transform var(--transition);
+}
+
+.engine-result:hover .engine-result__img img { transform: scale(1.05); }
+
+.engine-result__header { margin-bottom: 0.6rem; }
+
+.engine-result__catalog {
+    display: inline-block;
+    font-family: var(--font-display);
+    font-size: 0.7rem;
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin-bottom: 0.25rem;
+}
+
+.engine-result__body h3 {
+    font-size: 1.05rem;
+    margin-bottom: 0.2rem;
+}
+
+.engine-result__body h3 a { color: var(--color-primary-dark); }
+.engine-result__body h3 a:hover { color: var(--color-primary); }
+
+.engine-result__type {
+    display: inline-block;
+    font-size: 0.8rem;
+    color: var(--color-text-light);
+}
+
+.engine-result__meta {
+    font-size: 0.88rem;
+    color: var(--color-text-light);
+    line-height: 1.6;
+}
+
+.engine-result__meta strong {
+    color: var(--color-text);
+    font-weight: var(--font-weight-semibold);
+}
+
+.engine-result__actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-self: center;
+    min-width: 150px;
+}
+
+.engine-result__actions .btn { width: 100%; }
+
+@media (max-width: 900px) {
+    .engine-result {
+        grid-template-columns: 90px 1fr;
+        gap: 1rem;
+    }
+    .engine-result__actions {
+        grid-column: 1 / -1;
+        flex-direction: row;
+        min-width: 0;
+    }
+    .engine-result__actions .btn { width: auto; flex: 1; }
+}
+
+@media (max-width: 480px) {
+    .engine-result { grid-template-columns: 1fr; }
+    .engine-result__left { max-width: 120px; }
+    .engine-result__actions { flex-direction: column; }
+}
+
 .engine-tags {
     display: flex;
     flex-wrap: wrap;

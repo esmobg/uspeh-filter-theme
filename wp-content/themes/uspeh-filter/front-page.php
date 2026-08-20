@@ -1,4 +1,14 @@
-<?php get_header(); ?>
+<?php
+/**
+ * Начална страница: blocks-first — ако страницата има Gutenberg съдържание
+ * (напр. вмъкнат pattern „Начална страница"), рендира се то; иначе PHP секциите.
+ */
+get_header();
+
+if (uspeh_maybe_render_block_page(false)) {
+    return;
+}
+?>
 
 <?php get_template_part('template-parts/hero'); ?>
 <?php get_template_part('template-parts/product-directions'); ?>

@@ -92,6 +92,12 @@ $vtypes  = get_the_terms(get_the_ID(), 'vehicle_type');
                 </div>
             </div>
         </div>
+
+        <?php if (trim(get_the_content()) !== '') : ?>
+            <div class="single-engine__description entry-content" style="margin-top: 2.5rem; max-width: 800px;">
+                <?php the_content(); ?>
+            </div>
+        <?php endif; ?>
     </div>
 </article>
 

@@ -3,6 +3,10 @@
  * Template Name: Landing Page (Google Ads)
  */
 get_header();
+
+if (uspeh_maybe_render_block_page(false)) {
+    return;
+}
 ?>
 
 <section class="hero hero--compact">
@@ -28,7 +32,9 @@ get_header();
 
 <section class="section">
     <div class="container">
-        <?php the_content(); ?>
+        <div class="entry-content">
+            <?php the_content(); ?>
+        </div>
     </div>
 </section>
 

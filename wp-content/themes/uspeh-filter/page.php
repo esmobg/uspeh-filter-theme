@@ -1,6 +1,18 @@
-<?php get_header(); ?>
+<?php
+/**
+ * Стандартен шаблон за страница: при Gutenberg съдържание рендира блоковете
+ * на пълна ширина (alignfull/alignwide работят); иначе — класически контейнер.
+ */
+get_header();
 
-<?php uspeh_render_breadcrumbs(); ?>
+uspeh_render_breadcrumbs();
+
+if (uspeh_page_has_block_layout()) {
+    uspeh_render_block_layout();
+    get_footer();
+    return;
+}
+?>
 
 <article class="page-content section">
     <div class="container">

@@ -101,33 +101,49 @@ function uspeh_application_url(string $slug): string {
 }
 
 /**
- * Render optional Gutenberg blocks below the themed template layout.
- * Does not replace PHP sections — only outputs extra editable content.
+ * Blocks-first: страница с блоково съдържание се рендира изцяло от Gutenberg;
+ * без блокове темплейтът пада обратно към PHP секциите си.
  */
-function uspeh_render_gutenberg_page_content(bool $wrap_in_section = true): bool {
-    if (!is_singular('page')) {
+function uspeh_page_has_block_layout(): bool {
+    if (!is_page()) {
         return false;
     }
 
     $post = get_queried_object();
-    if (!$post instanceof WP_Post) {
+
+    return $post instanceof WP_Post
+        && trim((string) $post->post_content) !== ''
+        && has_blocks($post);
+}
+
+/**
+ * Рендира блоковото съдържание на страницата (loop-ът е в темплейта, който вика това).
+ */
+function uspeh_render_block_layout(): void {
+    while (have_posts()) {
+        the_post();
+        echo '<div class="entry-content is-block-layout">';
+        the_content();
+        echo '</div>';
+    }
+}
+
+/**
+ * Blocks-first guard за темплейти: ако страницата има блоково съдържание,
+ * рендира го (с опционални breadcrumbs) и затваря страницата.
+ * Темплейтът трябва да направи `return;` при true.
+ */
+function uspeh_maybe_render_block_page(bool $with_breadcrumbs = true): bool {
+    if (!uspeh_page_has_block_layout()) {
         return false;
     }
 
-    $content = (string) $post->post_content;
-    if ($content === '' || !has_blocks($content)) {
-        return false;
+    if ($with_breadcrumbs) {
+        uspeh_render_breadcrumbs();
     }
 
-    if ($wrap_in_section) {
-        echo '<section class="section page-blocks"><div class="container entry-content">';
-    }
-
-    echo apply_filters('the_content', $content);
-
-    if ($wrap_in_section) {
-        echo '</div></section>';
-    }
+    uspeh_render_block_layout();
+    get_footer();
 
     return true;
 }
@@ -209,6 +225,75 @@ function uspeh_get_primary_navigation(): array {
             'url'   => home_url('/kontakti/'),
         ],
     ];
+}
+
+/**
+ * Fallback за футър колона „Продукти и услуги" (когато няма закачено меню).
+ */
+function uspeh_render_footer_products_fallback(): void {
+    $links = [
+        [__('Въздушни филтри', 'uspeh-filter'), home_url('/vazdushni-filtri/')],
+        [__('Фини филтри', 'uspeh-filter'), home_url('/vazdushni-filtri/fini-filtri/')],
+        [__('EPA, HEPA, ULPA', 'uspeh-filter'), home_url('/hepa-filtri/')],
+        [__('Карбонови филтри', 'uspeh-filter'), home_url('/vazdushni-filtri/karbonovi/')],
+        [__('Двигателни филтри', 'uspeh-filter'), home_url('/dvigatelni-filtri/')],
+        [__('Индивидуално производство', 'uspeh-filter'), home_url('/individualno-proizvodstvo/')],
+    ];
+    uspeh_render_footer_links_list($links);
+}
+
+/**
+ * Fallback за футър колона „Компания".
+ */
+function uspeh_render_footer_company_fallback(): void {
+    $links = [
+        [__('За нас', 'uspeh-filter'), home_url('/za-nas/')],
+        [__('Производство', 'uspeh-filter'), home_url('/proizvodstvo/')],
+        [__('Качество', 'uspeh-filter'), home_url('/kachestvo/')],
+        [__('Поискай оферта', 'uspeh-filter'), uspeh_quote_page_url()],
+        [__('Контакти', 'uspeh-filter'), home_url('/kontakti/')],
+    ];
+    uspeh_render_footer_links_list($links);
+}
+
+function uspeh_render_footer_links_list(array $links): void {
+    echo '<ul class="site-footer__links">';
+    foreach ($links as $link) {
+        echo '<li><a href="' . esc_url((string) $link[1]) . '">' . esc_html((string) $link[0]) . '</a></li>';
+    }
+    echo '</ul>';
+}
+
+/**
+ * Fallback за правните линкове в дъното на футъра.
+ */
+function uspeh_render_footer_legal_fallback(): void {
+    echo '<a href="' . esc_url(home_url('/politika-poveritelnost/')) . '">' . esc_html__('Поверителност', 'uspeh-filter') . '</a>';
+    echo '<a href="' . esc_url(home_url('/politika-biskvitki/')) . '">' . esc_html__('Бисквитки', 'uspeh-filter') . '</a>';
+}
+
+/**
+ * Логото на сайта: custom logo от Персонализиране, с fallback към вграденото.
+ */
+function uspeh_render_logo(string $context = 'header'): void {
+    if (function_exists('the_custom_logo') && has_custom_logo()) {
+        the_custom_logo();
+        return;
+    }
+
+    $is_header = $context === 'header';
+    printf(
+        '<a href="%1$s" class="%2$s" aria-label="%3$s"><img src="%4$s" alt="%5$s" width="%6$d" height="%7$d" loading="%8$s"%9$s></a>',
+        esc_url(home_url('/')),
+        $is_header ? 'site-header__logo' : 'site-footer__logo-link',
+        esc_attr__('Начало', 'uspeh-filter'),
+        esc_url(USPEH_URI . '/assets/images/logo.png'),
+        esc_attr(get_bloginfo('name')),
+        $is_header ? 200 : 180,
+        $is_header ? 60 : 54,
+        $is_header ? 'eager' : 'lazy',
+        $is_header ? '' : ' class="site-footer__logo"'
+    );
 }
 
 function uspeh_is_current_url(string $url): bool {

@@ -3,6 +3,10 @@
  * Template Name: За нас
  */
 get_header();
+
+if (uspeh_maybe_render_block_page()) {
+    return;
+}
 ?>
 
 <?php uspeh_render_breadcrumbs(); ?>
@@ -56,7 +60,9 @@ get_header();
 
 <section class="section">
     <div class="container">
-        <?php the_content(); ?>
+        <div class="entry-content">
+            <?php the_content(); ?>
+        </div>
     </div>
 </section>
 

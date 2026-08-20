@@ -3,6 +3,10 @@
  * Template Name: Индивидуално производство
  */
 get_header();
+
+if (uspeh_maybe_render_block_page()) {
+    return;
+}
 $bg = get_theme_mod('custom_prod_hero', uspeh_theme_image('slide2.jpg'));
 ?>
 

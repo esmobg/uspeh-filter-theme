@@ -16,8 +16,9 @@ All key pages score **100/100/100** (Accessibility, Best Practices, SEO).
 ## Features
 
 - **WCAG AA compliant** — full color contrast, heading hierarchy, ARIA roles, form labels, touch targets
-- **Gutenberg-ready** — all page templates support the block editor; 5 registered block patterns
-- **Responsive** — mobile-first design with sticky CTA, burger menu, optimized touch targets
+- **Gutenberg-first** — `theme.json` design tokens, matching editor styles, 26 block patterns, and blocks-first page rendering (see [Editing with Gutenberg](#editing-with-gutenberg))
+- **Editable chrome** — WordPress menus for the header and footer, custom logo support, and a Customizer section for section images, each with a code fallback
+- **Responsive** — mobile-first design with sticky CTA, slide-in mobile navigation, optimized touch targets
 - **SEO** — meta description fallback, JSON-LD schema markup, breadcrumbs, semantic HTML
 - **Custom Post Types** — Products, Engine Filters, Applications, Tech Articles, Inquiries
 - **Custom Taxonomies** — Product Categories, Engine Filter Types, Vehicle Makes/Types
@@ -41,9 +42,14 @@ cd uspeh-filter-theme
 docker compose up -d
 
 # Wait for WordPress to initialize (~30s), then seed demo content
-docker compose exec wpcli wp theme activate uspeh-filter
-docker compose exec wpcli php /var/www/html/bin/seed.php
+docker compose run --rm wpcli wp theme activate uspeh-filter
+bash bin/seed.sh
+
+# Optional: replace the seeded pages with their Gutenberg starter patterns
+docker compose run --rm wpcli wp eval-file wp-content/themes/uspeh-filter/inc/seed-gutenberg-pages.php
 ```
+
+Both seeders are idempotent — re-running them will not duplicate content.
 
 The site will be available at [http://localhost:8080](http://localhost:8080).
 
@@ -58,16 +64,18 @@ The site will be available at [http://localhost:8080](http://localhost:8080).
 │   └── seed.sh                 # Demo content seeder
 └── wp-content/themes/uspeh-filter/
     ├── assets/
-    │   ├── css/                # main.css, home.css, catalog.css, pages.css, components.css
-    │   ├── js/                 # main.js, engine-search.js, mobile-nav.js, popup-form.js
+    │   ├── css/                # main, home, catalog, pages, components, editor
+    │   ├── js/                 # main.js, engine-search.js, popup-form.js, utm-capture.js
     │   └── images/             # Theme images (slides, categories, logos)
-    ├── inc/                    # PHP modules (CPTs, taxonomies, forms, AJAX, email, schema)
+    ├── inc/                    # PHP modules (CPTs, taxonomies, forms, AJAX, email, schema,
+    │                           #   patterns, block styles, nav walker, customizer)
     ├── page-templates/         # 11 custom page templates
     ├── template-parts/         # 21 reusable template parts
     ├── screenshot.png          # Theme screenshot
     ├── functions.php           # Theme setup, hooks, includes
     ├── header.php / footer.php # Global header and footer
     ├── front-page.php          # Homepage template
+    ├── theme.json              # Editor design tokens (colors, fonts, spacing, layout)
     └── style.css               # Theme metadata
 ```
 
@@ -87,15 +95,120 @@ The site will be available at [http://localhost:8080](http://localhost:8080).
 | Landing | Google Ads landing page with form |
 | Thank You | Post-submission confirmation |
 
-## Block Patterns
+## Editing with Gutenberg
 
-Available under the "Успех Филтър — Страници" category:
+### Blocks-first rendering
 
-- Hero Section (full-width cover with CTA)
-- Two Columns — Text and Image
-- Three Cards
-- CTA Banner
-- FAQ Section
+Every page template follows the same rule: **if the page has block content, the blocks render and the PHP sections are skipped; if the content is empty, the PHP template renders as before.** The helper is `uspeh_maybe_render_block_page()` in `inc/helpers.php`.
+
+This means an editor can take over any page — including the homepage — entirely from the block editor by inserting one of the starter patterns, without touching PHP. To hand a page back to its coded design, clear its content in the editor.
+
+The one exception is the quote form itself, which stays in PHP (`inc/forms.php`) because it handles nonces, file uploads, and email notification. Patterns link to `/poiskaj-oferta/` rather than reproducing it.
+
+### Design tokens (`theme.json`)
+
+`theme.json` (schema v2) exposes the theme's design system to the editor, so colors and fonts picked in Gutenberg match the front end:
+
+| Setting | Values |
+|---|---|
+| Colors | `primary` #00639E, `primary-dark` #052C4B, `primary-light` #3AA3DC, `accent` #E85D2C, `cta` #E31C23, `base`, `base-alt`, `contrast`, `text`, `border` |
+| Fonts | Source Sans 3 (body), Montserrat (headings), Dancing Script (accent) |
+| Sizes | Fluid `clamp()` scale, small → xx-large |
+| Layout | Content 1200px, wide 1400px |
+
+WordPress core's default palette is disabled, so only brand colors appear in the picker. `assets/css/main.css` reads these presets with static fallbacks (`var(--wp--preset--color--primary, #00639E)`), keeping one source of truth.
+
+`assets/css/editor.css` mirrors the relevant front-end rules into the editor canvas via `add_editor_style()`.
+
+### Block patterns
+
+**Sections** — *Успех Филтър — Страници*: Hero, Two Columns, Three Cards, CTA Banner, FAQ, Stats Row
+
+**Content** — *Успех Филтър — Съдържание*: Testimonials, Partner Logo Strip, Process Timeline, Certifications, Downloads, Filter Class Table, Team, Industry Section
+
+**Page starters** — *Успех Филтър — Стартови страници*: full-page block versions of Home, About, HEPA, Quality, Production, Custom Production, Applications, Contact, Quote, FAQ, Thank You, and Landing
+
+**Block styles** — Button: *CTA (червен градиент)*; Group: *Секция — сива*, *Секция — тъмна*
+
+### Menus, logo, and images
+
+- **Menus** — `primary`, `footer` (Products), `footer-company`, `footer-legal`. Assign them under *Appearance → Menus*. When a location is unassigned, the hardcoded list in `inc/helpers.php` renders instead, so the site never loses navigation.
+- **Logo** — *Appearance → Customize → Site Identity*. Falls back to `assets/images/logo.png`.
+- **Section images** — *Appearance → Customize → Изображения на секциите* sets the 12 images used by the PHP fallback sections (hero, product directions, catalog banner, and others).
+
+### Seeding block content
+
+```bash
+docker compose run --rm wpcli wp eval-file wp-content/themes/uspeh-filter/inc/seed-gutenberg-pages.php
+```
+
+Pages are matched by slug and skipped if they already contain blocks, so the command is safe to re-run.
+
+## Migrating from the old site
+
+The previous site runs a custom PHP CMS (`index.php?lang=1&m=739`), so there is no REST API or WXR export to import — the content has to be crawled.
+
+### One command
+
+```bash
+bash bin/migrate.sh https://uspehfilter.com/
+```
+
+This crawls the old site, shows you exactly what it will import, waits for confirmation, and then imports — inferring the post type and page template for each page. Re-running updates what is already there instead of duplicating it.
+
+The steps below are the same thing done by hand, for when you want to review or adjust the mapping in between.
+
+### Step by step
+
+**1. Crawl** — run with plain PHP from a machine that can reach the old site (no WordPress needed):
+
+```bash
+php wp-content/themes/uspeh-filter/bin/migrate-fetch.php \
+  --base=https://uspehfilter.com/ --out=migration --lang=1
+```
+
+It walks on-domain links, picks the main content region of each page by text density (which works without knowing the old markup, including table-based layouts), downloads images, and writes:
+
+| File | Contents |
+|---|---|
+| `migration/old-site.json` | one record per page: title, text, HTML, headings, tables, images |
+| `migration/images/` | the downloaded images |
+| `migration/mapping.csv` | a draft mapping table for you to fill in |
+
+Legacy Bulgarian sites are often `windows-1251`; the crawler detects the charset and converts to UTF-8, so Cyrillic survives.
+
+Useful flags: `--max=N` caps pages, `--delay=MS` sets the pause between requests, `--lang=1` keeps the crawl to Bulgarian pages, `--exclude=REGEX` skips URLs (listing and tag pages, for instance), `--no-images` skips downloads.
+
+**2. Review** — open `migration/mapping.csv` and set, per row:
+
+| Column | Meaning |
+|---|---|
+| `post_type` | `page` (default), `product`, `engine_filter`, `application`, `tech_article`, `post` |
+| `slug` | leave blank to derive one (Cyrillic is transliterated to match the theme's Latin slugs) |
+| `template` | e.g. `page-templates/template-about.php` |
+| `redirect_to` | destination for the 301, if it differs from the new slug |
+| `skip` | any value drops the row |
+
+**3. Import** — run on the new site:
+
+```bash
+# see what would happen first
+wp eval-file wp-content/themes/uspeh-filter/bin/migrate-import.php -- --dir=migration --auto --dry-run
+wp eval-file wp-content/themes/uspeh-filter/bin/migrate-import.php -- --dir=migration --auto
+```
+
+`--auto` fills in the post type and template for rows `mapping.csv` leaves blank. Anything you set in the CSV wins, so manual decisions are never overwritten. Inference reads the page **title only** and stays deliberately conservative — a page it can't place keeps the default template, which still renders its blocks correctly, whereas a wrong template would replace the page's whole design. Rows it guessed are marked with `*` in the report. Pages carrying a filter class (`F7`, `H13`) become products, ones with a `UF-xxxx` catalogue or OEM number become engine filters, and their meta boxes are filled from the text.
+
+The importer converts each page into **Gutenberg blocks** — headings, paragraphs, lists, real data tables, images — discarding the old layout markup, so pages open cleanly in the editor and the theme's blocks-first rendering takes over. Images go into the media library and the first one becomes the featured image. Navigation leftovers (breadcrumbs, menus, share bars) are filtered out, since the theme renders its own.
+
+Every imported record stores its source URL in `_migrated_from`, so **re-running updates in place instead of duplicating** — safe to iterate on the mapping and import again.
+
+It also writes `migration/redirects.generated.php`, ready to paste into the `$redirects` array in `inc/redirects.php`.
+
+## Notes
+
+- **SVG uploads** are enabled but not sanitized. For production, install [Safe SVG](https://wordpress.org/plugins/safe-svg/) or remove the `upload_mimes` filter in `functions.php`.
+- **CSS loading** — all five stylesheets load on every request. Splitting them per template is a worthwhile future optimization; blocks-first pages can use classes from any of them, so it needs care.
 
 ## License
 
