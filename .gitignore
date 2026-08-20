@@ -22,5 +22,6 @@ node_modules/
 .env
 .env.local
 
-# Migration working directory (crawled content and downloaded images)
-migration/
+# Migration working directory: keep the crawled data (small, reviewable, and
+# how the JSON gets handed between machines), skip the downloaded images.
+migration/images/
