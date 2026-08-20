@@ -2,14 +2,13 @@
 /**
  * The main template file.
  *
- * @package suspended Успех Филтър
+ * @package Uspeh_Filter
  */
 
 get_header();
 ?>
 
-<main id="main-content" class="site-main">
-	<div class="container">
+	<div class="container section">
 		<?php if ( have_posts() ) : ?>
 			<?php while ( have_posts() ) : the_post(); ?>
 				<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
@@ -26,7 +25,6 @@ get_header();
 			<p><?php esc_html_e( 'Няма намерени публикации.', 'uspeh-filter' ); ?></p>
 		<?php endif; ?>
 	</div>
-</main>
 
 <?php
 get_footer();

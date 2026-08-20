@@ -3,6 +3,10 @@
  * Template Name: Производство
  */
 get_header();
+
+if (uspeh_maybe_render_block_page()) {
+    return;
+}
 $bg = get_theme_mod('production_hero_img', uspeh_theme_image('page-production.jpg') ?: uspeh_theme_image('slide3.jpg'));
 ?>
 
@@ -30,7 +34,9 @@ $bg = get_theme_mod('production_hero_img', uspeh_theme_image('page-production.jp
             <h2><?php esc_html_e('Нашето производство', 'uspeh-filter'); ?></h2>
             <p><?php esc_html_e('Разполагаме с оборудване за плисиране, сглобяване, тестване и контрол на въздушни, HEPA, двигателни и индустриални филтри.', 'uspeh-filter'); ?></p>
         </div>
-        <?php the_content(); ?>
+        <div class="entry-content">
+            <?php the_content(); ?>
+        </div>
     </div>
 </section>
 

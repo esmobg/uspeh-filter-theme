@@ -3,6 +3,10 @@
  * Template Name: Благодарим
  */
 get_header();
+
+if (uspeh_maybe_render_block_page(false)) {
+    return;
+}
 ?>
 
 <section class="section thank-you">

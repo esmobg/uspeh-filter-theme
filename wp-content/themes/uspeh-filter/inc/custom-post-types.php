@@ -40,7 +40,7 @@ function uspeh_register_product_cpt(): void {
         'has_archive'        => true,
         'rewrite'            => ['slug' => 'dvigatelni-filtri', 'with_front' => false],
         'menu_icon'          => 'dashicons-car',
-        'supports'           => ['title', 'thumbnail', 'revisions'],
+        'supports'           => ['title', 'editor', 'thumbnail', 'revisions'],
         'show_in_rest'       => true,
         'menu_position'      => 6,
     ]);

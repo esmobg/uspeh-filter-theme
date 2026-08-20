@@ -3,6 +3,10 @@
  * Template Name: Качество и сертификати
  */
 get_header();
+
+if (uspeh_maybe_render_block_page()) {
+    return;
+}
 ?>
 
 <?php uspeh_render_breadcrumbs(); ?>
@@ -37,7 +41,11 @@ get_header();
             </div>
         </div>
 
-        <?php the_content(); ?>
+        <div class="entry-content">
+
+            <?php the_content(); ?>
+
+        </div>
     </div>
 </section>
 

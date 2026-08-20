@@ -1,28 +1,31 @@
 /* === DESIGN SYSTEM (AFT-inspired: white + cyan + orange/red) === */
+/* Цветовете и шрифтовете идват от theme.json (--wp--preset--*); стойностите тук са fallback. */
 :root {
-    --color-primary: #00639E;
-    --color-primary-dark: #052C4B;
-    --color-primary-light: #3AA3DC;
-    --color-accent: #E85D2C;
+    --color-primary: var(--wp--preset--color--primary, #00639E);
+    --color-primary-dark: var(--wp--preset--color--primary-dark, #052C4B);
+    --color-primary-light: var(--wp--preset--color--primary-light, #3AA3DC);
+    --color-accent: var(--wp--preset--color--accent, #E85D2C);
     --color-accent-hover: #C94A1A;
-    --color-accent-light: #FF6B35;
-    --color-cta: #E31C23;
+    --color-accent-light: var(--wp--preset--color--accent-light, #FF6B35);
+    --color-cta: var(--wp--preset--color--cta, #E31C23);
     --color-cta-hover: #C4181E;
-    --color-bg: #FFFFFF;
-    --color-bg-alt: #F7F7F7;
-    --color-bg-dark: #052C4B;
-    --color-text: #4A4A4A;
-    --color-text-light: #595959;
+    --color-bg: var(--wp--preset--color--base, #FFFFFF);
+    --color-bg-alt: var(--wp--preset--color--base-alt, #F7F7F7);
+    --color-bg-dark: var(--wp--preset--color--contrast, #052C4B);
+    --color-text: var(--wp--preset--color--text, #4A4A4A);
+    --color-text-light: var(--wp--preset--color--text-light, #595959);
     --color-text-inverse: #FFFFFF;
-    --color-border: #E8E8E8;
+    --color-border: var(--wp--preset--color--border, #E8E8E8);
     --color-border-light: #F0F0F0;
-    --color-success: #2E7D32;
+    --color-success: var(--wp--preset--color--success, #2E7D32);
     --color-warning: #F57C00;
-    --color-error: #D32F2F;
+    --color-error: var(--wp--preset--color--error, #D32F2F);
+    --gradient-accent: var(--wp--preset--gradient--accent-cta, linear-gradient(135deg, #E85D2C 0%, #E31C23 100%));
+    --gradient-navy-overlay: var(--wp--preset--gradient--navy-overlay, linear-gradient(100deg, rgba(5, 44, 75, 0.85) 0%, rgba(0, 99, 158, 0.45) 100%));
 
-    --font-script: 'Dancing Script', cursive;
-    --font-display: 'Montserrat', sans-serif;
-    --font-primary: 'Source Sans 3', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-script: var(--wp--preset--font-family--script, 'Dancing Script', cursive);
+    --font-display: var(--wp--preset--font-family--display, 'Montserrat', sans-serif);
+    --font-primary: var(--wp--preset--font-family--body, 'Source Sans 3', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif);
     --font-weight-regular: 400;
     --font-weight-medium: 500;
     --font-weight-semibold: 600;
@@ -31,6 +34,7 @@
 
     --container-max: 1200px;
     --container-padding: 1.5rem;
+    --section-pad: clamp(3rem, 6vw, 5.5rem);
     --radius-sm: 0;
     --radius: 2px;
     --radius-lg: 4px;
@@ -64,6 +68,10 @@ a:hover { color: var(--color-accent); }
 ul, ol { list-style: none; }
 button { cursor: pointer; border: none; background: none; font-family: inherit; }
 input, textarea, select { font-family: inherit; font-size: inherit; }
+:focus-visible {
+    outline: 2px solid var(--color-primary-light);
+    outline-offset: 2px;
+}
 h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
     font-weight: var(--font-weight-semibold);
@@ -84,7 +92,7 @@ h4 { font-size: 1.15rem; }
     margin: 0 auto;
     padding: 0 var(--container-padding);
 }
-.section { padding: 5rem 0; }
+.section { padding: var(--section-pad) 0; }
 .section--alt { background: var(--color-bg-alt); }
 .section--dark { background: var(--color-bg-dark); color: var(--color-text-inverse); }
 .section--dark h2, .section--dark h3, .section--dark h4 { color: var(--color-text-inverse); }
@@ -92,6 +100,17 @@ h4 { font-size: 1.15rem; }
 .section__header { text-align: center; margin-bottom: 3.5rem; }
 .section__header h1,
 .section__header h2 { color: var(--color-primary); }
+.section__header h1::after,
+.section__header h2::after {
+    content: '';
+    display: block;
+    width: 48px;
+    height: 3px;
+    background: var(--color-accent);
+    margin: 0.85rem auto 0;
+}
+.section--dark .section__header h1,
+.section--dark .section__header h2 { color: var(--color-text-inverse); }
 .section__header p { color: var(--color-text-light); margin-top: 0.75rem; max-width: 700px; margin-left: auto; margin-right: auto; font-size: 1.05rem; text-transform: none; letter-spacing: 0; font-family: var(--font-primary); }
 .section__label {
     display: inline-block;
@@ -122,6 +141,8 @@ h4 { font-size: 1.15rem; }
     text-transform: uppercase;
     letter-spacing: 0.06em;
 }
+.btn:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+.btn:active { transform: translateY(0); box-shadow: none; }
 .btn--accent {
     background: var(--color-accent);
     color: var(--color-text-inverse);
@@ -130,6 +151,16 @@ h4 { font-size: 1.15rem; }
 .btn--accent:hover {
     background: var(--color-accent-hover);
     border-color: var(--color-accent-hover);
+    color: var(--color-text-inverse);
+}
+.btn--cta {
+    background: var(--gradient-accent);
+    color: var(--color-text-inverse);
+    border: none;
+    padding: calc(0.85rem + 2px) calc(2rem + 2px);
+}
+.btn--cta:hover {
+    filter: brightness(1.08);
     color: var(--color-text-inverse);
 }
 .btn--detail {
@@ -346,7 +377,8 @@ h4 { font-size: 1.15rem; }
 .breadcrumbs { padding: 1rem 0; font-size: 0.85rem; color: var(--color-text-light); background: var(--color-bg-alt); }
 .breadcrumbs__link { color: var(--color-text-light); }
 .breadcrumbs__link:hover { color: var(--color-accent); }
-.breadcrumbs__sep { margin: 0 0.25rem; }
+.breadcrumbs__sep { margin: 0 0.35rem; color: var(--color-accent); }
+.breadcrumbs__current { color: var(--color-text); font-weight: var(--font-weight-medium); }
 
 /* === CARDS === */
 .card {
@@ -354,9 +386,10 @@ h4 { font-size: 1.15rem; }
     border-radius: 0;
     overflow: hidden;
     border: 1px solid var(--color-border);
-    transition: border-color var(--transition);
+    box-shadow: var(--shadow-sm);
+    transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
 }
-.card:hover { border-color: var(--color-primary); transform: none; box-shadow: none; }
+.card:hover { border-color: var(--color-primary); transform: translateY(-3px); box-shadow: var(--shadow); }
 .card__image { aspect-ratio: 1; overflow: hidden; }
 .card__image img { width: 100%; height: 100%; object-fit: cover; transition: transform var(--transition); }
 .card:hover .card__image img { transform: scale(1.04); }
@@ -575,7 +608,13 @@ h4 { font-size: 1.15rem; }
 .specs-table td:first-child { font-weight: var(--font-weight-medium); color: var(--color-text-light); width: 40%; }
 
 /* === FAQ ACCORDION === */
-.faq-item { border-bottom: 1px solid var(--color-border); }
+.faq-item { border-bottom: 1px solid var(--color-border); transition: background var(--transition-fast); }
+.faq-item.is-open {
+    background: var(--color-bg-alt);
+    border-left: 3px solid var(--color-accent);
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
 .faq-item__question {
     width: 100%;
     display: flex;
@@ -635,23 +674,232 @@ h4 { font-size: 1.15rem; }
 .popup__close:hover { background: var(--color-bg-alt); color: var(--color-text); }
 .popup__title { font-size: 1.5rem; margin-bottom: 1.5rem; }
 
+/* === РЕДАКТОРСКО СЪДЪРЖАНИЕ (the_content) === */
+/* Глобалният reset нулира margins, затова вертикалният ритъм се връща тук. */
+.entry-content,
+.page-content__body,
+.single-post__content,
+.faq-list { --content-rhythm: 1.25rem; }
+/* Акордеоните имат собствени бордюри — без отстояние между тях. */
+.faq-list,
+.entry-content { --details-gap: 0; }
+.faq-list > .wp-block-details + .wp-block-details,
+.entry-content .wp-block-details + .wp-block-details { margin-top: var(--details-gap); }
+
+.entry-content > * + *,
+.page-content__body > * + *,
+.single-post__content > * + *,
+.faq-list > * + * { margin-top: var(--content-rhythm); }
+
+.entry-content p,
+.page-content__body p,
+.single-post__content p { line-height: 1.7; }
+
+.entry-content h2,
+.page-content__body h2,
+.single-post__content h2 { margin-top: 2.5rem; }
+.entry-content h3,
+.page-content__body h3,
+.single-post__content h3 { margin-top: 2rem; }
+.entry-content :where(h2, h3, h4) + *,
+.page-content__body :where(h2, h3, h4) + *,
+.single-post__content :where(h2, h3, h4) + * { margin-top: 1rem; }
+
+.entry-content :where(ul, ol),
+.page-content__body :where(ul, ol),
+.single-post__content :where(ul, ol) { padding-left: 1.35rem; color: var(--color-text-light); }
+.entry-content ul,
+.page-content__body ul,
+.single-post__content ul { list-style: disc; }
+.entry-content ol,
+.page-content__body ol,
+.single-post__content ol { list-style: decimal; }
+.entry-content li + li,
+.page-content__body li + li,
+.single-post__content li + li { margin-top: 0.4rem; }
+.entry-content li::marker,
+.page-content__body li::marker,
+.single-post__content li::marker { color: var(--color-accent); }
+
+.entry-content img { margin-left: auto; margin-right: auto; }
+.entry-content a:not(.wp-block-button__link),
+.page-content__body a,
+.single-post__content a { text-decoration: underline; text-underline-offset: 0.15em; }
+
+/* Блокови страници: пълноширинните секции остават full-bleed,
+   всичко останало се центрира с отстъпи като .container. */
+.is-block-layout > :not(.alignfull) {
+    max-width: var(--container-max);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--container-padding);
+    padding-right: var(--container-padding);
+}
+.is-block-layout > .alignwide { max-width: 1400px; }
+.is-block-layout > * + * { margin-top: 0; }
+.is-block-layout > * + :not(.alignfull) { margin-top: 2rem; }
+.is-block-layout .alignfull.is-layout-constrained > :not(.alignfull) {
+    padding-left: var(--container-padding);
+    padding-right: var(--container-padding);
+}
+.is-block-layout .alignfull > * + * { margin-top: 1.25rem; }
+
+/* === GUTENBERG BLOCK STYLES === */
+.wp-block-button.is-style-cta .wp-block-button__link {
+    background: var(--gradient-accent);
+    color: var(--color-text-inverse);
+    border: none;
+}
+.wp-block-button.is-style-cta .wp-block-button__link:hover {
+    filter: brightness(1.08);
+    color: var(--color-text-inverse);
+}
+.wp-block-group.is-style-section-alt {
+    background: var(--color-bg-alt);
+    padding-top: var(--section-pad);
+    padding-bottom: var(--section-pad);
+}
+.wp-block-group.is-style-section-dark {
+    background: var(--color-bg-dark);
+    color: var(--color-text-inverse);
+    padding-top: var(--section-pad);
+    padding-bottom: var(--section-pad);
+}
+.wp-block-group.is-style-section-dark h1,
+.wp-block-group.is-style-section-dark h2,
+.wp-block-group.is-style-section-dark h3,
+.wp-block-group.is-style-section-dark h4 { color: var(--color-text-inverse); }
+.wp-block-group.is-style-section-dark a:not(.wp-block-button__link) { color: #fff; text-decoration: underline; }
+.wp-block-group.is-style-section-dark .section__label { color: rgba(255, 255, 255, 0.85); }
+.has-contrast-background-color .section__label { color: rgba(255, 255, 255, 0.85); }
+
+.wp-block-button__link {
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: var(--font-weight-semibold);
+    border-radius: 0;
+    transition: all var(--transition);
+}
+.wp-block-button__link:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+
+/* Акордеон (core details блок — използва се във FAQ секциите) */
+.wp-block-details {
+    border-bottom: 1px solid var(--color-border);
+    padding: 0.35rem 0;
+}
+.wp-block-details summary {
+    cursor: pointer;
+    list-style: none;
+    padding: 1.15rem 2rem 1.15rem 0;
+    position: relative;
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-primary-dark);
+}
+.wp-block-details summary::-webkit-details-marker { display: none; }
+.wp-block-details summary::after {
+    content: '+';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.5rem;
+    line-height: 1;
+    color: var(--color-accent);
+}
+.wp-block-details[open] summary::after { content: '−'; }
+.wp-block-details[open] {
+    background: var(--color-bg-alt);
+    border-left: 3px solid var(--color-accent);
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+.wp-block-details > :not(summary) {
+    color: var(--color-text-light);
+    line-height: 1.7;
+    padding-bottom: 1.15rem;
+}
+
+.wp-block-quote {
+    border-left: 4px solid var(--color-accent);
+    padding: 0.5rem 0 0.5rem 1.25rem;
+    font-style: normal;
+    background: transparent;
+}
+.wp-block-quote cite {
+    display: block;
+    margin-top: 0.75rem;
+    font-family: var(--font-display);
+    font-size: 0.78rem;
+    font-style: normal;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-primary);
+}
+.wp-block-table table { border-collapse: collapse; width: 100%; }
+.wp-block-table th {
+    font-family: var(--font-display);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    background: var(--color-primary-dark);
+    color: #fff;
+    padding: 0.75rem 1rem;
+    text-align: left;
+}
+.wp-block-table td {
+    padding: 0.65rem 1rem;
+    border-bottom: 1px solid var(--color-border);
+    font-size: 0.95rem;
+}
+.wp-block-table tbody tr:nth-child(even) { background: var(--color-bg-alt); }
+.wp-block-columns.uspeh-cards .wp-block-column {
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-sm);
+    padding: 1.5rem;
+    transition: box-shadow var(--transition), transform var(--transition), border-color var(--transition);
+}
+.wp-block-columns.uspeh-cards .wp-block-column:hover {
+    box-shadow: var(--shadow);
+    transform: translateY(-3px);
+    border-color: var(--color-primary);
+}
+
+/* Custom logo (Външен вид → Персонализиране → Лого) */
+.custom-logo-link { display: inline-flex; align-items: center; }
+.custom-logo { max-height: 56px; width: auto; }
+
 /* === RESPONSIVE === */
 @media (max-width: 1024px) {
     .site-header__main-inner {
         grid-template-columns: auto auto;
     }
     .site-header__search { display: none; }
-    .site-nav { display: none; }
-    .site-nav.is-open {
+    .site-nav {
         display: block;
-        position: absolute;
-        top: 100%;
-        left: 0;
+        position: fixed;
+        top: var(--header-height-mobile);
         right: 0;
+        bottom: 0;
+        width: min(340px, 86vw);
         background: var(--color-bg);
-        box-shadow: var(--shadow-lg);
-        padding: 1rem;
-        border-top: 1px solid var(--color-border);
+        padding: 1rem 1.25rem 2rem;
+        overflow-y: auto;
+        transform: translateX(100%);
+        visibility: hidden;
+        transition: transform var(--transition), visibility var(--transition), box-shadow var(--transition);
+        z-index: 900;
+    }
+    .site-nav.is-open {
+        transform: translateX(0);
+        visibility: visible;
+        box-shadow: 0 0 0 100vmax rgba(5, 44, 75, 0.45), var(--shadow-xl);
+    }
+    @media (prefers-reduced-motion: reduce) {
+        .site-nav { transition: none; }
     }
     .site-nav__list { flex-direction: column; align-items: stretch; }
     .site-nav__item {

@@ -37,12 +37,21 @@
 <header class="site-header" id="site-header">
     <div class="site-header__main">
         <div class="container site-header__main-inner">
-            <a href="<?php echo esc_url(home_url('/')); ?>" class="site-header__logo" aria-label="<?php esc_attr_e('Начало', 'uspeh-filter'); ?>">
-                <img src="<?php echo esc_url(USPEH_URI . '/assets/images/logo.png'); ?>" alt="<?php echo esc_attr(get_bloginfo('name')); ?>" width="200" height="60" loading="eager">
-            </a>
+            <?php uspeh_render_logo('header'); ?>
 
             <nav class="site-nav" id="site-nav" aria-label="<?php esc_attr_e('Основна навигация', 'uspeh-filter'); ?>">
-                <?php uspeh_render_primary_navigation(); ?>
+                <?php
+                if (has_nav_menu('primary')) {
+                    wp_nav_menu([
+                        'theme_location' => 'primary',
+                        'container'      => false,
+                        'menu_class'     => 'site-nav__list',
+                        'walker'         => new Uspeh_Nav_Walker(),
+                    ]);
+                } else {
+                    uspeh_render_primary_navigation();
+                }
+                ?>
             </nav>
 
             <div class="site-header__actions">

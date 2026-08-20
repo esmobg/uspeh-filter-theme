@@ -36,8 +36,8 @@ function uspeh_register_section_patterns(): void {
 <!-- /wp:paragraph -->
 
 <!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} -->
-<div class="wp-block-buttons"><!-- wp:button {"backgroundColor":"vivid-orange"} -->
-<div class="wp-block-button"><a class="wp-block-button__link has-vivid-orange-background-color has-background wp-element-button" href="/poiskaj-oferta/">Поискай оферта</a></div>
+<div class="wp-block-buttons"><!-- wp:button {"textColor":"base","backgroundColor":"accent"} -->
+<div class="wp-block-button"><a class="wp-block-button__link has-base-color has-accent-background-color has-text-color has-background wp-element-button" href="/poiskaj-oferta/">Поискай оферта</a></div>
 <!-- /wp:button --></div>
 <!-- /wp:buttons --></div></div>
 <!-- /wp:cover -->',
@@ -86,8 +86,8 @@ function uspeh_register_section_patterns(): void {
         'categories'  => ['uspeh-pages'],
         'content'     => '<!-- wp:columns {"align":"wide"} -->
 <div class="wp-block-columns alignwide"><!-- wp:column -->
-<div class="wp-block-column"><!-- wp:group {"style":{"spacing":{"padding":{"top":"1.5rem","right":"1.5rem","bottom":"1.5rem","left":"1.5rem"}},"border":{"width":"1px"}},"borderColor":"cyan-bluish-gray","layout":{"type":"constrained"}} -->
-<div class="wp-block-group has-border-color has-cyan-bluish-gray-border-color" style="border-width:1px;padding-top:1.5rem;padding-right:1.5rem;padding-bottom:1.5rem;padding-left:1.5rem"><!-- wp:heading {"level":3} -->
+<div class="wp-block-column"><!-- wp:group {"style":{"spacing":{"padding":{"top":"1.5rem","right":"1.5rem","bottom":"1.5rem","left":"1.5rem"}},"border":{"width":"1px"}},"borderColor":"border","layout":{"type":"constrained"}} -->
+<div class="wp-block-group has-border-color has-border-border-color" style="border-width:1px;padding-top:1.5rem;padding-right:1.5rem;padding-bottom:1.5rem;padding-left:1.5rem"><!-- wp:heading {"level":3} -->
 <h3 class="wp-block-heading">Карта 1</h3>
 <!-- /wp:heading -->
 
@@ -98,8 +98,8 @@ function uspeh_register_section_patterns(): void {
 <!-- /wp:column -->
 
 <!-- wp:column -->
-<div class="wp-block-column"><!-- wp:group {"style":{"spacing":{"padding":{"top":"1.5rem","right":"1.5rem","bottom":"1.5rem","left":"1.5rem"}},"border":{"width":"1px"}},"borderColor":"cyan-bluish-gray","layout":{"type":"constrained"}} -->
-<div class="wp-block-group has-border-color has-cyan-bluish-gray-border-color" style="border-width:1px;padding-top:1.5rem;padding-right:1.5rem;padding-bottom:1.5rem;padding-left:1.5rem"><!-- wp:heading {"level":3} -->
+<div class="wp-block-column"><!-- wp:group {"style":{"spacing":{"padding":{"top":"1.5rem","right":"1.5rem","bottom":"1.5rem","left":"1.5rem"}},"border":{"width":"1px"}},"borderColor":"border","layout":{"type":"constrained"}} -->
+<div class="wp-block-group has-border-color has-border-border-color" style="border-width:1px;padding-top:1.5rem;padding-right:1.5rem;padding-bottom:1.5rem;padding-left:1.5rem"><!-- wp:heading {"level":3} -->
 <h3 class="wp-block-heading">Карта 2</h3>
 <!-- /wp:heading -->
 
@@ -110,8 +110,8 @@ function uspeh_register_section_patterns(): void {
 <!-- /wp:column -->
 
 <!-- wp:column -->
-<div class="wp-block-column"><!-- wp:group {"style":{"spacing":{"padding":{"top":"1.5rem","right":"1.5rem","bottom":"1.5rem","left":"1.5rem"}},"border":{"width":"1px"}},"borderColor":"cyan-bluish-gray","layout":{"type":"constrained"}} -->
-<div class="wp-block-group has-border-color has-cyan-bluish-gray-border-color" style="border-width:1px;padding-top:1.5rem;padding-right:1.5rem;padding-bottom:1.5rem;padding-left:1.5rem"><!-- wp:heading {"level":3} -->
+<div class="wp-block-column"><!-- wp:group {"style":{"spacing":{"padding":{"top":"1.5rem","right":"1.5rem","bottom":"1.5rem","left":"1.5rem"}},"border":{"width":"1px"}},"borderColor":"border","layout":{"type":"constrained"}} -->
+<div class="wp-block-group has-border-color has-border-border-color" style="border-width:1px;padding-top:1.5rem;padding-right:1.5rem;padding-bottom:1.5rem;padding-left:1.5rem"><!-- wp:heading {"level":3} -->
 <h3 class="wp-block-heading">Карта 3</h3>
 <!-- /wp:heading -->
 
@@ -127,8 +127,8 @@ function uspeh_register_section_patterns(): void {
         'title'       => __('CTA банер', 'uspeh-filter'),
         'description' => __('Пълноширинен банер с призив за действие', 'uspeh-filter'),
         'categories'  => ['uspeh-pages'],
-        'content'     => '<!-- wp:group {"align":"full","style":{"spacing":{"padding":{"top":"4rem","bottom":"4rem"}},"color":{"background":"#052C4B"}},"textColor":"white","layout":{"type":"constrained"}} -->
-<div class="wp-block-group alignfull has-white-color has-text-color has-background" style="background-color:#052C4B;padding-top:4rem;padding-bottom:4rem"><!-- wp:heading {"textAlign":"center"} -->
+        'content'     => '<!-- wp:group {"align":"full","style":{"spacing":{"padding":{"top":"4rem","bottom":"4rem"}}},"backgroundColor":"contrast","textColor":"base","layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignfull has-base-color has-contrast-background-color has-text-color has-background" style="padding-top:4rem;padding-bottom:4rem"><!-- wp:heading {"textAlign":"center"} -->
 <h2 class="wp-block-heading has-text-align-center">Търсите конкретен филтър или решение по задание?</h2>
 <!-- /wp:heading -->
 
@@ -137,8 +137,8 @@ function uspeh_register_section_patterns(): void {
 <!-- /wp:paragraph -->
 
 <!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} -->
-<div class="wp-block-buttons"><!-- wp:button {"backgroundColor":"vivid-orange"} -->
-<div class="wp-block-button"><a class="wp-block-button__link has-vivid-orange-background-color has-background wp-element-button" href="/poiskaj-oferta/">Изпрати запитване</a></div>
+<div class="wp-block-buttons"><!-- wp:button {"textColor":"base","backgroundColor":"accent"} -->
+<div class="wp-block-button"><a class="wp-block-button__link has-base-color has-accent-background-color has-text-color has-background wp-element-button" href="/poiskaj-oferta/">Изпрати запитване</a></div>
 <!-- /wp:button -->
 
 <!-- wp:button {"className":"is-style-outline"} -->
@@ -282,14 +282,14 @@ function uspeh_register_page_starter_patterns(): void {
 <div style="height:24px" aria-hidden="true" class="wp-block-spacer"></div>
 <!-- /wp:spacer -->
 
-<!-- wp:group {"align":"full","style":{"spacing":{"padding":{"top":"3rem","bottom":"3rem"}},"color":{"background":"#052C4B"}},"textColor":"white","layout":{"type":"constrained"}} -->
-<div class="wp-block-group alignfull has-white-color has-text-color has-background" style="background-color:#052C4B;padding-top:3rem;padding-bottom:3rem"><!-- wp:heading {"textAlign":"center"} -->
+<!-- wp:group {"align":"full","style":{"spacing":{"padding":{"top":"3rem","bottom":"3rem"}}},"backgroundColor":"contrast","textColor":"base","layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignfull has-base-color has-contrast-background-color has-text-color has-background" style="padding-top:3rem;padding-bottom:3rem"><!-- wp:heading {"textAlign":"center"} -->
 <h2 class="wp-block-heading has-text-align-center">Търсите конкретен филтър?</h2>
 <!-- /wp:heading -->
 
 <!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} -->
-<div class="wp-block-buttons"><!-- wp:button {"backgroundColor":"vivid-orange"} -->
-<div class="wp-block-button"><a class="wp-block-button__link has-vivid-orange-background-color has-background wp-element-button" href="/poiskaj-oferta/">Изпрати запитване</a></div>
+<div class="wp-block-buttons"><!-- wp:button {"textColor":"base","backgroundColor":"accent"} -->
+<div class="wp-block-button"><a class="wp-block-button__link has-base-color has-accent-background-color has-text-color has-background wp-element-button" href="/poiskaj-oferta/">Изпрати запитване</a></div>
 <!-- /wp:button --></div>
 <!-- /wp:buttons --></div>
 <!-- /wp:group -->',
@@ -309,8 +309,8 @@ function uspeh_register_page_starter_patterns(): void {
 <!-- /wp:paragraph -->
 
 <!-- wp:buttons -->
-<div class="wp-block-buttons"><!-- wp:button {"backgroundColor":"vivid-orange"} -->
-<div class="wp-block-button"><a class="wp-block-button__link has-vivid-orange-background-color has-background wp-element-button" href="/poiskaj-oferta/">Поискайте цена</a></div>
+<div class="wp-block-buttons"><!-- wp:button {"textColor":"base","backgroundColor":"accent"} -->
+<div class="wp-block-button"><a class="wp-block-button__link has-base-color has-accent-background-color has-text-color has-background wp-element-button" href="/poiskaj-oferta/">Поискайте цена</a></div>
 <!-- /wp:button -->
 
 <!-- wp:button {"className":"is-style-outline"} -->
@@ -385,8 +385,8 @@ function uspeh_register_page_starter_patterns(): void {
 <!-- /wp:columns -->
 
 <!-- wp:buttons -->
-<div class="wp-block-buttons"><!-- wp:button {"backgroundColor":"vivid-orange"} -->
-<div class="wp-block-button"><a class="wp-block-button__link has-vivid-orange-background-color has-background wp-element-button" href="/poiskaj-oferta/">Поискайте оферта</a></div>
+<div class="wp-block-buttons"><!-- wp:button {"textColor":"base","backgroundColor":"accent"} -->
+<div class="wp-block-button"><a class="wp-block-button__link has-base-color has-accent-background-color has-text-color has-background wp-element-button" href="/poiskaj-oferta/">Поискайте оферта</a></div>
 <!-- /wp:button --></div>
 <!-- /wp:buttons -->',
     ]);
@@ -441,8 +441,8 @@ function uspeh_register_page_starter_patterns(): void {
 <!-- /wp:columns -->
 
 <!-- wp:buttons -->
-<div class="wp-block-buttons"><!-- wp:button {"backgroundColor":"vivid-orange"} -->
-<div class="wp-block-button"><a class="wp-block-button__link has-vivid-orange-background-color has-background wp-element-button" href="/poiskaj-oferta/">Поискайте оферта</a></div>
+<div class="wp-block-buttons"><!-- wp:button {"textColor":"base","backgroundColor":"accent"} -->
+<div class="wp-block-button"><a class="wp-block-button__link has-base-color has-accent-background-color has-text-color has-background wp-element-button" href="/poiskaj-oferta/">Поискайте оферта</a></div>
 <!-- /wp:button --></div>
 <!-- /wp:buttons -->',
     ]);
@@ -509,8 +509,8 @@ function uspeh_register_page_starter_patterns(): void {
 <!-- /wp:paragraph -->
 
 <!-- wp:buttons -->
-<div class="wp-block-buttons"><!-- wp:button {"backgroundColor":"vivid-orange"} -->
-<div class="wp-block-button"><a class="wp-block-button__link has-vivid-orange-background-color has-background wp-element-button" href="/poiskaj-oferta/">Изпрати запитване</a></div>
+<div class="wp-block-buttons"><!-- wp:button {"textColor":"base","backgroundColor":"accent"} -->
+<div class="wp-block-button"><a class="wp-block-button__link has-base-color has-accent-background-color has-text-color has-background wp-element-button" href="/poiskaj-oferta/">Изпрати запитване</a></div>
 <!-- /wp:button --></div>
 <!-- /wp:buttons -->',
     ]);
@@ -549,8 +549,8 @@ function uspeh_register_page_starter_patterns(): void {
 <!-- /wp:paragraph -->
 
 <!-- wp:buttons -->
-<div class="wp-block-buttons"><!-- wp:button {"backgroundColor":"vivid-orange"} -->
-<div class="wp-block-button"><a class="wp-block-button__link has-vivid-orange-background-color has-background wp-element-button" href="/poiskaj-oferta/">Изпрати запитване</a></div>
+<div class="wp-block-buttons"><!-- wp:button {"textColor":"base","backgroundColor":"accent"} -->
+<div class="wp-block-button"><a class="wp-block-button__link has-base-color has-accent-background-color has-text-color has-background wp-element-button" href="/poiskaj-oferta/">Изпрати запитване</a></div>
 <!-- /wp:button --></div>
 <!-- /wp:buttons -->',
     ]);
@@ -637,8 +637,8 @@ function uspeh_register_page_starter_patterns(): void {
 <!-- /wp:columns -->
 
 <!-- wp:buttons -->
-<div class="wp-block-buttons"><!-- wp:button {"backgroundColor":"vivid-orange"} -->
-<div class="wp-block-button"><a class="wp-block-button__link has-vivid-orange-background-color has-background wp-element-button" href="/poiskaj-oferta/">Поискайте оферта</a></div>
+<div class="wp-block-buttons"><!-- wp:button {"textColor":"base","backgroundColor":"accent"} -->
+<div class="wp-block-button"><a class="wp-block-button__link has-base-color has-accent-background-color has-text-color has-background wp-element-button" href="/poiskaj-oferta/">Поискайте оферта</a></div>
 <!-- /wp:button --></div>
 <!-- /wp:buttons -->',
     ]);
@@ -697,8 +697,8 @@ function uspeh_register_page_starter_patterns(): void {
 <!-- /wp:paragraph -->
 
 <!-- wp:buttons -->
-<div class="wp-block-buttons"><!-- wp:button {"backgroundColor":"vivid-orange"} -->
-<div class="wp-block-button"><a class="wp-block-button__link has-vivid-orange-background-color has-background wp-element-button" href="/poiskaj-oferta/">Към формата за оферта</a></div>
+<div class="wp-block-buttons"><!-- wp:button {"textColor":"base","backgroundColor":"accent"} -->
+<div class="wp-block-button"><a class="wp-block-button__link has-base-color has-accent-background-color has-text-color has-background wp-element-button" href="/poiskaj-oferta/">Към формата за оферта</a></div>
 <!-- /wp:button --></div>
 <!-- /wp:buttons --></div>
 <!-- /wp:column --></div>
@@ -733,8 +733,8 @@ function uspeh_register_page_starter_patterns(): void {
 <!-- /wp:list -->
 
 <!-- wp:buttons -->
-<div class="wp-block-buttons"><!-- wp:button {"backgroundColor":"vivid-orange"} -->
-<div class="wp-block-button"><a class="wp-block-button__link has-vivid-orange-background-color has-background wp-element-button" href="/poiskaj-oferta/">Отвори формата</a></div>
+<div class="wp-block-buttons"><!-- wp:button {"textColor":"base","backgroundColor":"accent"} -->
+<div class="wp-block-button"><a class="wp-block-button__link has-base-color has-accent-background-color has-text-color has-background wp-element-button" href="/poiskaj-oferta/">Отвори формата</a></div>
 <!-- /wp:button --></div>
 <!-- /wp:buttons --></div>
 <!-- /wp:column -->
@@ -782,9 +782,39 @@ function uspeh_register_page_starter_patterns(): void {
 <!-- /wp:paragraph --></details>
 <!-- /wp:details -->
 
+<!-- wp:details -->
+<details class="wp-block-details"><summary>Как да разбера какъв клас филтър ми трябва?</summary><!-- wp:paragraph -->
+<p>Ако не знаете класа, опишете приложението — болнична зона, офис вентилация, боядисъчна камера — и ние ще предложим подходящия клас по ISO 16890 или EN 1822.</p>
+<!-- /wp:paragraph --></details>
+<!-- /wp:details -->
+
+<!-- wp:details -->
+<details class="wp-block-details"><summary>На колко време се сменя филтърът?</summary><!-- wp:paragraph -->
+<p>Правилният критерий е достигнатото крайно съпротивление, измерено с манометър, а не календарът. Ориентировъчно: предфилтри на 3–6 месеца, фини филтри на 6–12 месеца, в зависимост от запрашеността.</p>
+<!-- /wp:paragraph --></details>
+<!-- /wp:details -->
+
+<!-- wp:details -->
+<details class="wp-block-details"><summary>Издавате ли протокол за изпитване?</summary><!-- wp:paragraph -->
+<p>Да. За филтри клас H13 и нагоре всеки отделен филтър се изпитва индивидуално и се доставя с протокол по EN 1822.</p>
+<!-- /wp:paragraph --></details>
+<!-- /wp:details -->
+
+<!-- wp:details -->
+<details class="wp-block-details"><summary>Имам стар филтър без каталожен номер — можете ли да го изработите?</summary><!-- wp:paragraph -->
+<p>Да. Достатъчни са трите външни размера и снимка на стария филтър. При по-сложни случаи организираме оглед и замерване на място.</p>
+<!-- /wp:paragraph --></details>
+<!-- /wp:details -->
+
+<!-- wp:details -->
+<details class="wp-block-details"><summary>Доставяте ли в цялата страна?</summary><!-- wp:paragraph -->
+<p>Да, доставяме до обект в цялата страна. За клиенти с редовни поръчки поддържаме складови наличности и планирани графици за подмяна.</p>
+<!-- /wp:paragraph --></details>
+<!-- /wp:details -->
+
 <!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} -->
-<div class="wp-block-buttons"><!-- wp:button {"backgroundColor":"vivid-orange"} -->
-<div class="wp-block-button"><a class="wp-block-button__link has-vivid-orange-background-color has-background wp-element-button" href="/poiskaj-oferta/">Изпрати запитване</a></div>
+<div class="wp-block-buttons"><!-- wp:button {"textColor":"base","backgroundColor":"accent"} -->
+<div class="wp-block-button"><a class="wp-block-button__link has-base-color has-accent-background-color has-text-color has-background wp-element-button" href="/poiskaj-oferta/">Изпрати запитване</a></div>
 <!-- /wp:button --></div>
 <!-- /wp:buttons -->',
     ]);
@@ -829,8 +859,8 @@ function uspeh_register_page_starter_patterns(): void {
 <!-- /wp:paragraph -->
 
 <!-- wp:buttons -->
-<div class="wp-block-buttons"><!-- wp:button {"backgroundColor":"vivid-orange"} -->
-<div class="wp-block-button"><a class="wp-block-button__link has-vivid-orange-background-color has-background wp-element-button" href="#lp-form">Получи оферта от производител</a></div>
+<div class="wp-block-buttons"><!-- wp:button {"textColor":"base","backgroundColor":"accent"} -->
+<div class="wp-block-button"><a class="wp-block-button__link has-base-color has-accent-background-color has-text-color has-background wp-element-button" href="#lp-form">Получи оферта от производител</a></div>
 <!-- /wp:button -->
 
 <!-- wp:button {"className":"is-style-outline"} -->
@@ -887,8 +917,8 @@ function uspeh_register_page_starter_patterns(): void {
 <!-- /wp:paragraph -->
 
 <!-- wp:buttons -->
-<div class="wp-block-buttons"><!-- wp:button {"backgroundColor":"vivid-orange"} -->
-<div class="wp-block-button"><a class="wp-block-button__link has-vivid-orange-background-color has-background wp-element-button" href="/poiskaj-oferta/">Към формата</a></div>
+<div class="wp-block-buttons"><!-- wp:button {"textColor":"base","backgroundColor":"accent"} -->
+<div class="wp-block-button"><a class="wp-block-button__link has-base-color has-accent-background-color has-text-color has-background wp-element-button" href="/poiskaj-oferta/">Към формата</a></div>
 <!-- /wp:button --></div>
 <!-- /wp:buttons -->',
     ]);
@@ -919,8 +949,8 @@ function uspeh_register_page_starter_patterns(): void {
 <!-- /wp:paragraph -->
 
 <!-- wp:buttons -->
-<div class="wp-block-buttons"><!-- wp:button {"backgroundColor":"vivid-orange"} -->
-<div class="wp-block-button"><a class="wp-block-button__link has-vivid-orange-background-color has-background wp-element-button" href="/vazdushni-filtri/">Разгледайте каталога</a></div>
+<div class="wp-block-buttons"><!-- wp:button {"textColor":"base","backgroundColor":"accent"} -->
+<div class="wp-block-button"><a class="wp-block-button__link has-base-color has-accent-background-color has-text-color has-background wp-element-button" href="/vazdushni-filtri/">Разгледайте каталога</a></div>
 <!-- /wp:button --></div>
 <!-- /wp:buttons --></div>
 <!-- /wp:column --></div>
@@ -983,8 +1013,8 @@ function uspeh_register_page_starter_patterns(): void {
 <!-- /wp:columns -->
 
 <!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} -->
-<div class="wp-block-buttons"><!-- wp:button {"backgroundColor":"vivid-orange"} -->
-<div class="wp-block-button"><a class="wp-block-button__link has-vivid-orange-background-color has-background wp-element-button" href="/poiskaj-oferta/">Поискай оферта</a></div>
+<div class="wp-block-buttons"><!-- wp:button {"textColor":"base","backgroundColor":"accent"} -->
+<div class="wp-block-button"><a class="wp-block-button__link has-base-color has-accent-background-color has-text-color has-background wp-element-button" href="/poiskaj-oferta/">Поискай оферта</a></div>
 <!-- /wp:button --></div>
 <!-- /wp:buttons -->',
     ]);

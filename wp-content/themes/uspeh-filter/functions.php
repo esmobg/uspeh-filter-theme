@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-define('USPEH_VERSION', '1.4.1');
+define('USPEH_VERSION', '1.5.0');
 define('USPEH_DIR', get_template_directory());
 define('USPEH_URI', get_template_directory_uri());
 
@@ -20,7 +20,11 @@ require_once USPEH_DIR . '/inc/utm-tracking.php';
 require_once USPEH_DIR . '/inc/schema-markup.php';
 require_once USPEH_DIR . '/inc/redirects.php';
 require_once USPEH_DIR . '/inc/helpers.php';
+require_once USPEH_DIR . '/inc/nav-walker.php';
+require_once USPEH_DIR . '/inc/customizer.php';
+require_once USPEH_DIR . '/inc/block-styles.php';
 require_once USPEH_DIR . '/inc/block-patterns.php';
+require_once USPEH_DIR . '/inc/block-patterns-content.php';
 
 function uspeh_setup(): void {
     load_theme_textdomain('uspeh-filter', USPEH_DIR . '/languages');
@@ -43,6 +47,10 @@ function uspeh_setup(): void {
         'flex-width'  => true,
     ]);
     add_theme_support('editor-styles');
+    add_editor_style([
+        'https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Montserrat:ital,wght@0,500;0,600;0,700;0,800&family=Source+Sans+3:wght@400;500;600;700&display=swap',
+        'assets/css/editor.css',
+    ]);
     add_theme_support('wp-block-styles');
     add_theme_support('responsive-embeds');
     add_theme_support('align-wide');
@@ -53,41 +61,13 @@ function uspeh_setup(): void {
     add_image_size('hero-slide', 1920, 800, true);
 
     register_nav_menus([
-        'primary'      => __('Основно меню', 'uspeh-filter'),
-        'footer'       => __('Футър меню', 'uspeh-filter'),
-        'mobile'       => __('Мобилно меню', 'uspeh-filter'),
-        'footer-legal' => __('Правна информация', 'uspeh-filter'),
+        'primary'        => __('Основно меню', 'uspeh-filter'),
+        'footer'         => __('Футър — Продукти и услуги', 'uspeh-filter'),
+        'footer-company' => __('Футър — Компания', 'uspeh-filter'),
+        'footer-legal'   => __('Правна информация', 'uspeh-filter'),
     ]);
 }
 add_action('after_setup_theme', 'uspeh_setup');
-
-function uspeh_widgets_init(): void {
-    register_sidebar([
-        'name'          => __('Футър колона 1', 'uspeh-filter'),
-        'id'            => 'footer-1',
-        'before_widget' => '<div class="footer-widget">',
-        'after_widget'  => '</div>',
-        'before_title'  => '<h4 class="footer-widget__title">',
-        'after_title'   => '</h4>',
-    ]);
-    register_sidebar([
-        'name'          => __('Футър колона 2', 'uspeh-filter'),
-        'id'            => 'footer-2',
-        'before_widget' => '<div class="footer-widget">',
-        'after_widget'  => '</div>',
-        'before_title'  => '<h4 class="footer-widget__title">',
-        'after_title'   => '</h4>',
-    ]);
-    register_sidebar([
-        'name'          => __('Футър колона 3', 'uspeh-filter'),
-        'id'            => 'footer-3',
-        'before_widget' => '<div class="footer-widget">',
-        'after_widget'  => '</div>',
-        'before_title'  => '<h4 class="footer-widget__title">',
-        'after_title'   => '</h4>',
-    ]);
-}
-add_action('widgets_init', 'uspeh_widgets_init');
 
 function uspeh_allow_svg_upload(array $mimes): array {
     $mimes['svg'] = 'image/svg+xml';

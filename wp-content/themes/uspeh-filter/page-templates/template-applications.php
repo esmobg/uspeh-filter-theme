@@ -3,6 +3,10 @@
  * Template Name: Приложения
  */
 get_header();
+
+if (uspeh_maybe_render_block_page()) {
+    return;
+}
 ?>
 
 <?php uspeh_render_breadcrumbs(); ?>
