@@ -144,6 +144,53 @@ docker compose run --rm wpcli wp eval-file wp-content/themes/uspeh-filter/inc/se
 
 Pages are matched by slug and skipped if they already contain blocks, so the command is safe to re-run.
 
+## Migrating from the old site
+
+The previous site runs a custom PHP CMS (`index.php?lang=1&m=739`), so there is no REST API or WXR export to import — the content has to be crawled. Two scripts do this, with a review step in between so nothing lands in the database unseen.
+
+**1. Crawl** — run with plain PHP from a machine that can reach the old site (no WordPress needed):
+
+```bash
+php wp-content/themes/uspeh-filter/bin/migrate-fetch.php \
+  --base=https://uspehfilter.com/ --out=migration --lang=1
+```
+
+It walks on-domain links, picks the main content region of each page by text density (which works without knowing the old markup, including table-based layouts), downloads images, and writes:
+
+| File | Contents |
+|---|---|
+| `migration/old-site.json` | one record per page: title, text, HTML, headings, tables, images |
+| `migration/images/` | the downloaded images |
+| `migration/mapping.csv` | a draft mapping table for you to fill in |
+
+Legacy Bulgarian sites are often `windows-1251`; the crawler detects the charset and converts to UTF-8, so Cyrillic survives.
+
+Useful flags: `--max=N` caps pages, `--delay=MS` sets the pause between requests, `--lang=1` keeps the crawl to Bulgarian pages, `--no-images` skips downloads.
+
+**2. Review** — open `migration/mapping.csv` and set, per row:
+
+| Column | Meaning |
+|---|---|
+| `post_type` | `page` (default), `product`, `engine_filter`, `application`, `tech_article`, `post` |
+| `slug` | leave blank to derive one (Cyrillic is transliterated to match the theme's Latin slugs) |
+| `template` | e.g. `page-templates/template-about.php` |
+| `redirect_to` | destination for the 301, if it differs from the new slug |
+| `skip` | any value drops the row |
+
+**3. Import** — run on the new site:
+
+```bash
+# see what would happen first
+wp eval-file wp-content/themes/uspeh-filter/bin/migrate-import.php -- --dir=migration --dry-run
+wp eval-file wp-content/themes/uspeh-filter/bin/migrate-import.php -- --dir=migration
+```
+
+The importer converts each page into **Gutenberg blocks** — headings, paragraphs, lists, real data tables, images — discarding the old layout markup, so pages open cleanly in the editor and the theme's blocks-first rendering takes over. Images go into the media library and the first one becomes the featured image. Navigation leftovers (breadcrumbs, menus, share bars) are filtered out, since the theme renders its own.
+
+Every imported record stores its source URL in `_migrated_from`, so **re-running updates in place instead of duplicating** — safe to iterate on the mapping and import again.
+
+It also writes `migration/redirects.generated.php`, ready to paste into the `$redirects` array in `inc/redirects.php`.
+
 ## Notes
 
 - **SVG uploads** are enabled but not sanitized. For production, install [Safe SVG](https://wordpress.org/plugins/safe-svg/) or remove the `upload_mimes` filter in `functions.php`.
