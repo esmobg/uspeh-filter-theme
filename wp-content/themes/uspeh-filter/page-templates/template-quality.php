@@ -20,7 +20,7 @@ get_header();
                 <div class="card__body">
                     <h3>ISO 9001:2015</h3>
                     <p class="card__text"><?php esc_html_e('Система за управление на качеството', 'uspeh-filter'); ?></p>
-                    <p class="card__text"><?php esc_html_e('PDF сертификат — ще бъде качен от администратора.', 'uspeh-filter'); ?></p>
+                    <p class="card__text"><?php esc_html_e('Сертификатът е наличен при запитване.', 'uspeh-filter'); ?></p>
                 </div>
             </div>
             <div class="card quality-card">

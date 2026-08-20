@@ -9,7 +9,7 @@
             </div>
 
             <div class="site-footer__col">
-                <h2 class="site-footer__heading"><?php esc_html_e('Продукти и услуги', 'uspeh-filter'); ?></h4>
+                <h2 class="site-footer__heading"><?php esc_html_e('Продукти и услуги', 'uspeh-filter'); ?></h2>
                 <ul class="site-footer__links">
                     <li><a href="<?php echo esc_url(home_url('/vazdushni-filtri/')); ?>"><?php esc_html_e('Въздушни филтри', 'uspeh-filter'); ?></a></li>
                     <li><a href="<?php echo esc_url(home_url('/vazdushni-filtri/fini-filtri/')); ?>"><?php esc_html_e('Фини филтри', 'uspeh-filter'); ?></a></li>
@@ -21,7 +21,7 @@
             </div>
 
             <div class="site-footer__col">
-                <h2 class="site-footer__heading"><?php esc_html_e('Компания', 'uspeh-filter'); ?></h4>
+                <h2 class="site-footer__heading"><?php esc_html_e('Компания', 'uspeh-filter'); ?></h2>
                 <ul class="site-footer__links">
                     <li><a href="<?php echo esc_url(home_url('/za-nas/')); ?>"><?php esc_html_e('За нас', 'uspeh-filter'); ?></a></li>
                     <li><a href="<?php echo esc_url(home_url('/proizvodstvo/')); ?>"><?php esc_html_e('Производство', 'uspeh-filter'); ?></a></li>
@@ -32,7 +32,7 @@
             </div>
 
             <div class="site-footer__col">
-                <h2 class="site-footer__heading"><?php esc_html_e('Контакти', 'uspeh-filter'); ?></h4>
+                <h2 class="site-footer__heading"><?php esc_html_e('Контакти', 'uspeh-filter'); ?></h2>
                 <address class="site-footer__address">
                     <p><?php echo esc_html(uspeh_get_address()); ?></p>
                     <p><strong><?php esc_html_e('Управител:', 'uspeh-filter'); ?></strong> <a href="<?php echo esc_url(uspeh_phone_link(uspeh_get_phone('manager'))); ?>"><?php echo esc_html(uspeh_get_phone('manager')); ?></a></p>

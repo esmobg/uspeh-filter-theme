@@ -8,5 +8,6 @@
 <?php get_template_part('template-parts/hepa-highlight'); ?>
 <?php get_template_part('template-parts/engine-catalog-teaser'); ?>
 <?php get_template_part('template-parts/news-teaser'); ?>
+<?php get_template_part('template-parts/final-cta'); ?>
 
 <?php get_footer(); ?>

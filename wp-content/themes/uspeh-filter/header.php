@@ -35,16 +35,6 @@
 <a href="#main-content" class="skip-link"><?php esc_html_e('Към съдържанието', 'uspeh-filter'); ?></a>
 
 <header class="site-header" id="site-header">
-    <div class="site-header__topbar">
-        <div class="container site-header__topbar-inner">
-            <p class="site-header__brand-copy"><?php esc_html_e('Производство на филтри за въздух, течности и газове', 'uspeh-filter'); ?></p>
-            <div class="site-header__topbar-links">
-                <a href="<?php echo esc_url(uspeh_phone_link(uspeh_get_phone('sales'))); ?>" class="site-header__top-link"><?php echo esc_html(uspeh_get_phone('sales')); ?></a>
-                <a href="mailto:<?php echo esc_attr(uspeh_get_email()); ?>" class="site-header__top-link"><?php echo esc_html(uspeh_get_email()); ?></a>
-                <span class="site-header__top-link site-header__top-link--address"><?php echo esc_html(uspeh_get_address()); ?></span>
-            </div>
-        </div>
-    </div>
     <div class="site-header__main">
         <div class="container site-header__main-inner">
             <a href="<?php echo esc_url(home_url('/')); ?>" class="site-header__logo" aria-label="<?php esc_attr_e('Начало', 'uspeh-filter'); ?>">
@@ -56,6 +46,9 @@
             </nav>
 
             <div class="site-header__actions">
+                <a href="<?php echo esc_url(get_post_type_archive_link('engine_filter') ?: home_url('/dvigatelni-filtri/')); ?>" class="site-header__search" aria-label="<?php esc_attr_e('Търсене на двигателен филтър', 'uspeh-filter'); ?>">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                </a>
                 <a href="<?php echo esc_url(uspeh_quote_page_url()); ?>" class="btn btn--accent site-header__cta"><?php esc_html_e('Поискай оферта', 'uspeh-filter'); ?></a>
                 <button class="site-header__burger" id="burger-toggle" aria-label="<?php esc_attr_e('Меню', 'uspeh-filter'); ?>" aria-expanded="false" aria-controls="site-nav">
                     <span></span><span></span><span></span>

@@ -91,6 +91,47 @@ function uspeh_theme_image(string $filename): string {
     return '';
 }
 
+function uspeh_application_url(string $slug): string {
+    $post = get_page_by_path($slug, OBJECT, 'application');
+    if ($post instanceof WP_Post) {
+        return get_permalink($post);
+    }
+
+    return home_url('/prilozhenia/' . $slug . '/');
+}
+
+/**
+ * Render optional Gutenberg blocks below the themed template layout.
+ * Does not replace PHP sections — only outputs extra editable content.
+ */
+function uspeh_render_gutenberg_page_content(bool $wrap_in_section = true): bool {
+    if (!is_singular('page')) {
+        return false;
+    }
+
+    $post = get_queried_object();
+    if (!$post instanceof WP_Post) {
+        return false;
+    }
+
+    $content = (string) $post->post_content;
+    if ($content === '' || !has_blocks($content)) {
+        return false;
+    }
+
+    if ($wrap_in_section) {
+        echo '<section class="section page-blocks"><div class="container entry-content">';
+    }
+
+    echo apply_filters('the_content', $content);
+
+    if ($wrap_in_section) {
+        echo '</div></section>';
+    }
+
+    return true;
+}
+
 function uspeh_quote_page_url(): string {
     return home_url('/poiskaj-oferta/');
 }

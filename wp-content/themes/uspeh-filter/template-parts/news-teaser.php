@@ -37,7 +37,11 @@ if (!$news->have_posts()) {
         </div>
 
         <div class="text-center news-teaser__more">
-            <a href="<?php echo esc_url(home_url('/znania/')); ?>" class="btn btn--outline"><?php esc_html_e('ВСИЧКИ ПУБЛИКАЦИИ', 'uspeh-filter'); ?> →</a>
+            <?php
+            $tech_archive = get_post_type_archive_link('tech_article');
+            $news_archive = $tech_archive ?: home_url('/technical/');
+            ?>
+            <a href="<?php echo esc_url($news_archive); ?>" class="btn btn--outline"><?php esc_html_e('ВСИЧКИ ПУБЛИКАЦИИ', 'uspeh-filter'); ?> →</a>
         </div>
     </div>
 </section>

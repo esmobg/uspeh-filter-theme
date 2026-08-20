@@ -4,7 +4,7 @@
             <div class="hepa-highlight__content">
                 <span class="section__label">HEPA <?php esc_html_e('ФИЛТРАЦИЯ', 'uspeh-filter'); ?></span>
                 <h2><?php esc_html_e('EPA, HEPA и ULPA филтри за обекти с високи изисквания', 'uspeh-filter'); ?></h2>
-                <p><?php esc_html_e('Старият сайт поставяше силен акцент върху HEPA решенията и това остава запазено: филтри за крайна степен на очистване на въздуха в болници, фармация, лаборатории, чисти помещения и технологични производства.', 'uspeh-filter'); ?></p>
+                <p><?php esc_html_e('Филтри за крайна степен на очистване на въздуха в болници, фармация, лаборатории, чисти помещения и технологични производства — с индивидуален сертификат и 100% контрол.', 'uspeh-filter'); ?></p>
                 <ul class="hepa-highlight__list">
                     <li><?php esc_html_e('HEPA сепараторни филтри', 'uspeh-filter'); ?></li>
                     <li><?php esc_html_e('HEPA mini-pleat филтри', 'uspeh-filter'); ?></li>

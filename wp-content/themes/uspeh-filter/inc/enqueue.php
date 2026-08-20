@@ -4,7 +4,7 @@ declare(strict_types=1);
 function uspeh_enqueue_assets(): void {
     wp_enqueue_style(
         'uspeh-fonts',
-        'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:ital,wght@0,500;0,600;0,700;0,800;1,600&display=swap',
+        'https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Montserrat:ital,wght@0,500;0,600;0,700;0,800&family=Source+Sans+3:wght@400;500;600;700&display=swap',
         [],
         null
     );

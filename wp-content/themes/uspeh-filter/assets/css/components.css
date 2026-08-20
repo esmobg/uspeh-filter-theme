@@ -97,7 +97,7 @@ textarea:focus-visible {
     width: 36px;
     height: 36px;
     border-radius: 50%;
-    background: #25D366;
+    background: rgba(255, 255, 255, 0.2);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -117,6 +117,7 @@ textarea:focus-visible {
     z-index: 900;
     padding: 0.5rem 0;
     padding-bottom: env(safe-area-inset-bottom, 0);
+    justify-content: space-around;
 }
 
 .mobile-bar__item {
@@ -144,10 +145,10 @@ textarea:focus-visible {
 }
 
 @media (max-width: 768px) {
-    .mobile-bar { display: none; }
+    .mobile-bar { display: flex; }
     .sticky-buttons {
         right: 0.75rem;
-        bottom: 0.85rem;
+        bottom: 4.75rem;
     }
     .sticky-buttons__cta {
         font-size: 0.7rem;

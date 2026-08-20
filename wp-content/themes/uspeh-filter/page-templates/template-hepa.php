@@ -29,7 +29,7 @@ $hero = uspeh_theme_image('slide2.jpg');
     <div class="container">
         <div class="section__header">
             <h2><?php esc_html_e('Абсолютни филтри от производителя', 'uspeh-filter'); ?></h2>
-            <p><?php esc_html_e('Вдъхновено от продуктовата логика на стария сайт, тази страница изважда на преден план основните HEPA изпълнения, класове и типични приложения, които клиентът реално търси.', 'uspeh-filter'); ?></p>
+            <p><?php esc_html_e('Основните HEPA изпълнения, класове и типични приложения — събрани на едно място за бърз избор и запитване за оферта.', 'uspeh-filter'); ?></p>
         </div>
 
         <div class="hepa-hub__trust">

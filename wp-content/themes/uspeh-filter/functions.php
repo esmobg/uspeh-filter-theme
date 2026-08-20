@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-define('USPEH_VERSION', '1.3.0');
+define('USPEH_VERSION', '1.4.1');
 define('USPEH_DIR', get_template_directory());
 define('USPEH_URI', get_template_directory_uri());
 

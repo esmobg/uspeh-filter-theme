@@ -3,7 +3,7 @@
         <header class="section__header">
             <span class="section__label"><?php esc_html_e('ПРОДУКТИ И УСЛУГИ', 'uspeh-filter'); ?></span>
             <h2><?php esc_html_e('Основни групи филтри', 'uspeh-filter'); ?></h2>
-            <p><?php esc_html_e('Производствената гама на Успех Филтър следва реалните приложения от стария каталог: груба и фина филтрация, високоефективни HEPA решения и филтри за газове, миризми и специални процеси.', 'uspeh-filter'); ?></p>
+            <p><?php esc_html_e('Производствената гама на Успех Филтър обхваща груба и фина филтрация, високоефективни HEPA решения и филтри за газове, миризми и специални процеси.', 'uspeh-filter'); ?></p>
         </header>
 
         <?php
@@ -51,7 +51,7 @@
         ];
         foreach ($directions as $dir) :
             ?>
-            <article class="product-row">
+            <article class="product-row" data-animate-row>
                 <div class="product-row__image">
                     <?php if ($dir['img']) : ?>
                         <img src="<?php echo esc_url($dir['img']); ?>" alt="<?php echo esc_attr($dir['title']); ?>" width="1200" height="900" loading="lazy">
