@@ -14,6 +14,8 @@ declare(strict_types=1);
  *   --max=N         таван на брой страници (по подразбиране 300)
  *   --delay=MS      пауза между заявките в милисекунди (по подразбиране 400)
  *   --lang=1        обхожда само адреси с този lang параметър (празно = всички)
+ *   --exclude=RE    пропуска адреси, отговарящи на този регулярен израз
+ *                   (напр. --exclude='/(tag|category|page)/' за списъчни страници)
  *   --no-images     пропуска сваляне на изображения
  *
  * Резултат:
@@ -48,6 +50,12 @@ $maxPages  = (int) ($opts['max'] ?? 300);
 $delayMs   = (int) ($opts['delay'] ?? 400);
 $langFilter = isset($opts['lang']) && is_string($opts['lang']) ? $opts['lang'] : '';
 $withImages = !isset($opts['no-images']);
+$exclude    = isset($opts['exclude']) && is_string($opts['exclude']) ? $opts['exclude'] : '';
+
+if ($exclude !== '' && @preg_match('~' . $exclude . '~i', '') === false) {
+    fwrite(STDERR, "Невалиден регулярен израз в --exclude.\n");
+    exit(1);
+}
 
 $host = (string) parse_url($base, PHP_URL_HOST);
 $imgDir = $outDir . '/images';
@@ -222,6 +230,10 @@ while ($queue && count($records) < $maxPages) {
         continue;
     }
     $seen[$key] = true;
+
+    if ($exclude !== '' && preg_match('~' . $exclude . '~i', $url)) {
+        continue;
+    }
 
     $res = mig_get($url);
     if ($res === null) {
@@ -398,9 +410,9 @@ file_put_contents(
 // Чернова за съпоставяне — попълва се на ръка преди импорта.
 $csv = fopen($outDir . '/mapping.csv', 'w');
 if ($csv) {
-    fputcsv($csv, ['old_url', 'title', 'post_type', 'slug', 'template', 'redirect_to', 'skip']);
+    fputcsv($csv, ['old_url', 'title', 'post_type', 'slug', 'template', 'redirect_to', 'skip'], ',', '"', '\\');
     foreach ($records as $r) {
-        fputcsv($csv, [$r['url'], $r['title'], 'page', '', '', '', '']);
+        fputcsv($csv, [$r['url'], $r['title'], 'page', '', '', '', ''], ',', '"', '\\');
     }
     fclose($csv);
 }

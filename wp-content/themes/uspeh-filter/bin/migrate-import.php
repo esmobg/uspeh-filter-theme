@@ -13,6 +13,9 @@ declare(strict_types=1);
  *   --dir=DIR     директория с old-site.json и mapping.csv (по подразбиране: migration)
  *   --dry-run     само отчита какво би направил, без да записва
  *   --only=TYPE   внася само записи от този тип (page, product, engine_filter, ...)
+ *   --auto        сам решава тип и шаблон за редовете, които mapping.csv не уточнява
+ *                 (заглавията се съпоставят със шаблоните на темата); mapping.csv
+ *                 винаги има приоритет, така че ръчните решения не се губят
  *
  * Съдържанието се превръща в Gutenberg блокове, така че страниците се отварят
  * директно в редактора. Blocks-first логиката на темата ги рендира вместо
@@ -51,6 +54,7 @@ foreach ($GLOBALS['argv'] ?? [] as $a) {
 $dir     = is_string($args['dir'] ?? null) ? rtrim($args['dir'], '/') : 'migration';
 $dryRun  = isset($args['dry-run']);
 $only    = is_string($args['only'] ?? null) ? $args['only'] : '';
+$auto    = isset($args['auto']);
 
 $jsonPath = $dir . '/old-site.json';
 if (!is_readable($jsonPath)) {
@@ -66,9 +70,9 @@ if (!is_array($data) || empty($data['pages'])) {
 $mapping = [];
 $mapPath = $dir . '/mapping.csv';
 if (is_readable($mapPath) && ($fh = fopen($mapPath, 'r')) !== false) {
-    $header = fgetcsv($fh);
+    $header = fgetcsv($fh, 0, ",", "\"", "\\");
     if (is_array($header)) {
-        while (($row = fgetcsv($fh)) !== false) {
+        while (($row = fgetcsv($fh, 0, ",", "\"", "\\")) !== false) {
             $r = array_combine(array_pad($header, count($row), ''), $row);
             if (!is_array($r) || empty($r['old_url'])) {
                 continue;
@@ -388,8 +392,112 @@ function mig_slug_from(string $url, string $title, string $base = ''): string {
     return $slug !== '' ? $slug : 'stranica-' . substr(md5($url), 0, 8);
 }
 
+/* ------------------------------------------------------------------ */
+/* Автоматично разпознаване (--auto)                                   */
+/* ------------------------------------------------------------------ */
+
+/**
+ * Съпоставя ЗАГЛАВИЕТО на стара страница със шаблон на темата.
+ *
+ * Нарочно е консервативно и гледа само заглавието: празният резултат е
+ * безопасен, защото page.php така или иначе рендира блоковете коректно,
+ * докато сгрешен шаблон подменя целия дизайн на страницата. Правилата са
+ * подредени от най-конкретното към най-общото.
+ */
+function mig_guess_template(string $title, string $url, string $text): string {
+    $t = mb_strtolower(trim($title), 'UTF-8');
+    if ($t === '') {
+        return '';
+    }
+
+    $rules = [
+        'page-templates/template-thank-you.php'         => ['благодар', 'thank you'],
+        'page-templates/template-faq.php'               => ['често задавани', 'въпроси и отговори', 'faq'],
+        'page-templates/template-quote.php'             => ['поискай оферта', 'запитване за оферта', 'заявка за оферта', 'искане на оферта'],
+        'page-templates/template-custom-production.php' => ['индивидуално производство', 'нестандартни размери', 'филтри по размер', 'по поръчка'],
+        'page-templates/template-quality.php'           => ['качество', 'сертификат', 'quality'],
+        'page-templates/template-production.php'        => ['производство', 'production'],
+        'page-templates/template-contact.php'           => ['контакт', 'contact'],
+        'page-templates/template-about.php'             => ['за нас', 'about us', 'история на', 'кои сме'],
+        'page-templates/template-applications.php'      => ['приложения', 'сектори', 'applications'],
+        'page-templates/template-hepa.php'              => ['hepa филтри', 'hepa, ulpa', 'epa, hepa'],
+    ];
+
+    foreach ($rules as $template => $phrases) {
+        foreach ($phrases as $phrase) {
+            if (str_contains($t, $phrase)) {
+                return $template;
+            }
+        }
+    }
+    return '';
+}
+
+/**
+ * Познава типа съдържание. Двигателните филтри се разпознават по каталожен/OEM
+ * номер, продуктите — по филтърен клас. Всичко останало остава страница.
+ */
+function mig_guess_post_type(array $page): string {
+    $title = (string) ($page['title'] ?? '');
+    $text  = (string) ($page['text'] ?? '');
+    $url   = (string) ($page['url'] ?? '');
+    $hay   = mb_strtolower($title . ' ' . mb_substr($text, 0, 600), 'UTF-8');
+
+    // Двигателен филтър: каталожен номер тип UF-1234 или явно OEM поле.
+    if (preg_match('/\bUF[-\s]?\d{3,5}\b/iu', $title . ' ' . $text)
+        || (str_contains($hay, 'oem') && preg_match('/\b\d{6,}\b/', $text))) {
+        return 'engine_filter';
+    }
+
+    // Продукт: заглавието носи филтърен клас (G4, M5, F7, E11, H13, U15).
+    if (preg_match('/\b(?:G[2-4]|M[5-6]|F[7-9]|E1[0-2]|H1[3-4]|U1[5-7])\b/u', $title)) {
+        return 'product';
+    }
+
+    // Техническа статия — само по ясен адрес, не по споменаване на стандарт
+    // (стандартите се цитират и в обикновени продуктови описания).
+    if (preg_match('~/(tech|technical|statii|stati|articles?|novini|blog)/~i', $url)) {
+        return 'tech_article';
+    }
+
+    return 'page';
+}
+
+/** Изважда каталожен номер и OEM номера от текста на страница за двигателен филтър. */
+function mig_extract_engine_meta(array $page): array {
+    $text = (string) ($page['text'] ?? '');
+    $meta = [];
+
+    if (preg_match('/\bUF[-\s]?(\d{3,5})\b/iu', (string) ($page['title'] ?? '') . ' ' . $text, $m)) {
+        $meta['_catalog_number'] = 'UF-' . $m[1];
+    }
+    if (preg_match('/OEM[^:]{0,12}:?\s*([0-9A-Za-z ,\/-]{6,120})/u', $text, $m)) {
+        $oems = preg_split('/[,;\/]+/', trim($m[1])) ?: [];
+        $oems = array_values(array_filter(array_map('trim', $oems),
+            static fn($o) => preg_match('/\d{4,}/', $o) === 1));
+        if ($oems) {
+            $meta['_oem_numbers'] = array_slice($oems, 0, 12);
+        }
+    }
+    if (preg_match('/A[:\s]+(\d{2,4})\s*mm.{0,20}B[:\s]+(\d{2,4})\s*mm.{0,20}H[:\s]+(\d{2,4})/isu', $text, $m)) {
+        $meta['_dim_a'] = $m[1];
+        $meta['_dim_b'] = $m[2];
+        $meta['_dim_h'] = $m[3];
+    }
+    return $meta;
+}
+
+/** Изважда филтърния клас от заглавието на продукт. */
+function mig_extract_product_meta(array $page): array {
+    $meta = [];
+    if (preg_match('/\b(G[2-4]|M[5-6]|F[7-9]|E1[0-2]|H1[3-4]|U1[5-7])\b/u', (string) ($page['title'] ?? ''), $m)) {
+        $meta['_filter_class'] = $m[1];
+    }
+    return $meta;
+}
+
 $imgDir = $dir . '/images';
-$stats  = ['created' => 0, 'updated' => 0, 'skipped' => 0, 'images' => 0];
+$stats  = ['created' => 0, 'updated' => 0, 'skipped' => 0, 'images' => 0, 'guessed' => 0];
 $redirects = [];
 
 WP_CLI::line(sprintf(
@@ -411,7 +519,15 @@ foreach ($data['pages'] as $page) {
         continue;
     }
 
-    $postType = trim((string) ($map['post_type'] ?? '')) ?: 'page';
+    // mapping.csv винаги печели; --auto попълва само празните решения.
+    $postType = trim((string) ($map['post_type'] ?? ''));
+    $guessed  = false;
+    if ($postType === '' && $auto) {
+        $postType = mig_guess_post_type($page);
+        $guessed  = true;
+    }
+    $postType = $postType ?: 'page';
+
     if ($only !== '' && $postType !== $only) {
         continue;
     }
@@ -448,12 +564,22 @@ foreach ($data['pages'] as $page) {
 
     $existing = mig_find_existing($oldUrl);
 
+    $template = trim((string) ($map['template'] ?? ''));
+    if ($template === '' && $auto && $postType === 'page') {
+        $template = mig_guess_template($title, $oldUrl, (string) ($page['text'] ?? ''));
+    }
+
+    if ($guessed) {
+        $stats['guessed']++;
+    }
+
     if ($dryRun) {
         WP_CLI::line(sprintf(
-            "  %-9s %-34s %s  (%d блока, %d изобр.)",
+            "  %-9s %-32s %-14s %-34s (%d блока, %d изобр.)",
             $existing ? 'обновява' : 'създава',
-            mb_strimwidth($title, 0, 34),
-            $postType,
+            mb_strimwidth($title, 0, 32),
+            $postType . ($guessed ? '*' : ''),
+            $template !== '' ? basename($template) : '—',
             substr_count($blocks, '<!-- wp:'),
             count($urlToId)
         ));
@@ -487,9 +613,18 @@ foreach ($data['pages'] as $page) {
 
     update_post_meta($postId, '_migrated_from', $oldUrl);
 
-    $template = trim((string) ($map['template'] ?? ''));
     if ($template !== '' && $postType === 'page') {
         update_post_meta($postId, '_wp_page_template', $template);
+    }
+
+    // Метаполета според типа, за да се напълнят кутиите на темата.
+    $typeMeta = match ($postType) {
+        'engine_filter' => mig_extract_engine_meta($page),
+        'product'       => mig_extract_product_meta($page),
+        default         => [],
+    };
+    foreach ($typeMeta as $k => $v) {
+        update_post_meta($postId, $k, $v);
     }
 
     if ($urlToId && !has_post_thumbnail($postId)) {
@@ -518,6 +653,9 @@ if ($redirects && !$dryRun) {
 }
 
 WP_CLI::line(sprintf(
-    "\nГотово: %d създадени, %d обновени, %d пропуснати, %d изображения.",
-    $stats['created'], $stats['updated'], $stats['skipped'], $stats['images']
+    "\nГотово: %d създадени, %d обновени, %d пропуснати, %d изображения.%s",
+    $stats['created'], $stats['updated'], $stats['skipped'], $stats['images'],
+    $stats['guessed'] > 0
+        ? sprintf("\n%d записа са типизирани автоматично (отбелязани с *) — прегледай ги в администрацията.", $stats['guessed'])
+        : ''
 ));

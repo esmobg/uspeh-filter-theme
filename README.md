@@ -146,7 +146,19 @@ Pages are matched by slug and skipped if they already contain blocks, so the com
 
 ## Migrating from the old site
 
-The previous site runs a custom PHP CMS (`index.php?lang=1&m=739`), so there is no REST API or WXR export to import — the content has to be crawled. Two scripts do this, with a review step in between so nothing lands in the database unseen.
+The previous site runs a custom PHP CMS (`index.php?lang=1&m=739`), so there is no REST API or WXR export to import — the content has to be crawled.
+
+### One command
+
+```bash
+bash bin/migrate.sh https://uspehfilter.com/
+```
+
+This crawls the old site, shows you exactly what it will import, waits for confirmation, and then imports — inferring the post type and page template for each page. Re-running updates what is already there instead of duplicating it.
+
+The steps below are the same thing done by hand, for when you want to review or adjust the mapping in between.
+
+### Step by step
 
 **1. Crawl** — run with plain PHP from a machine that can reach the old site (no WordPress needed):
 
@@ -165,7 +177,7 @@ It walks on-domain links, picks the main content region of each page by text den
 
 Legacy Bulgarian sites are often `windows-1251`; the crawler detects the charset and converts to UTF-8, so Cyrillic survives.
 
-Useful flags: `--max=N` caps pages, `--delay=MS` sets the pause between requests, `--lang=1` keeps the crawl to Bulgarian pages, `--no-images` skips downloads.
+Useful flags: `--max=N` caps pages, `--delay=MS` sets the pause between requests, `--lang=1` keeps the crawl to Bulgarian pages, `--exclude=REGEX` skips URLs (listing and tag pages, for instance), `--no-images` skips downloads.
 
 **2. Review** — open `migration/mapping.csv` and set, per row:
 
@@ -181,9 +193,11 @@ Useful flags: `--max=N` caps pages, `--delay=MS` sets the pause between requests
 
 ```bash
 # see what would happen first
-wp eval-file wp-content/themes/uspeh-filter/bin/migrate-import.php -- --dir=migration --dry-run
-wp eval-file wp-content/themes/uspeh-filter/bin/migrate-import.php -- --dir=migration
+wp eval-file wp-content/themes/uspeh-filter/bin/migrate-import.php -- --dir=migration --auto --dry-run
+wp eval-file wp-content/themes/uspeh-filter/bin/migrate-import.php -- --dir=migration --auto
 ```
+
+`--auto` fills in the post type and template for rows `mapping.csv` leaves blank. Anything you set in the CSV wins, so manual decisions are never overwritten. Inference reads the page **title only** and stays deliberately conservative — a page it can't place keeps the default template, which still renders its blocks correctly, whereas a wrong template would replace the page's whole design. Rows it guessed are marked with `*` in the report. Pages carrying a filter class (`F7`, `H13`) become products, ones with a `UF-xxxx` catalogue or OEM number become engine filters, and their meta boxes are filled from the text.
 
 The importer converts each page into **Gutenberg blocks** — headings, paragraphs, lists, real data tables, images — discarding the old layout markup, so pages open cleanly in the editor and the theme's blocks-first rendering takes over. Images go into the media library and the first one becomes the featured image. Navigation leftovers (breadcrumbs, menus, share bars) are filtered out, since the theme renders its own.
 
