@@ -86,8 +86,8 @@ function uspeh_register_section_patterns(): void {
         'categories'  => ['uspeh-pages'],
         'content'     => '<!-- wp:columns {"align":"wide"} -->
 <div class="wp-block-columns alignwide"><!-- wp:column -->
-<div class="wp-block-column"><!-- wp:group {"style":{"spacing":{"padding":{"top":"1.5rem","right":"1.5rem","bottom":"1.5rem","left":"1.5rem"}},"border":{"width":"1px"}},"borderColor":"border","layout":{"type":"constrained"}} -->
-<div class="wp-block-group has-border-color has-border-border-color" style="border-width:1px;padding-top:1.5rem;padding-right:1.5rem;padding-bottom:1.5rem;padding-left:1.5rem"><!-- wp:heading {"level":3} -->
+<div class="wp-block-column"><!-- wp:group {"style":{"spacing":{"padding":{"top":"1.5rem","right":"1.5rem","bottom":"1.5rem","left":"1.5rem"}},"border":{"width":"1px"}},"borderColor":"hairline","layout":{"type":"constrained"}} -->
+<div class="wp-block-group has-border-color has-hairline-border-color" style="border-width:1px;padding-top:1.5rem;padding-right:1.5rem;padding-bottom:1.5rem;padding-left:1.5rem"><!-- wp:heading {"level":3} -->
 <h3 class="wp-block-heading">Карта 1</h3>
 <!-- /wp:heading -->
 
@@ -98,8 +98,8 @@ function uspeh_register_section_patterns(): void {
 <!-- /wp:column -->
 
 <!-- wp:column -->
-<div class="wp-block-column"><!-- wp:group {"style":{"spacing":{"padding":{"top":"1.5rem","right":"1.5rem","bottom":"1.5rem","left":"1.5rem"}},"border":{"width":"1px"}},"borderColor":"border","layout":{"type":"constrained"}} -->
-<div class="wp-block-group has-border-color has-border-border-color" style="border-width:1px;padding-top:1.5rem;padding-right:1.5rem;padding-bottom:1.5rem;padding-left:1.5rem"><!-- wp:heading {"level":3} -->
+<div class="wp-block-column"><!-- wp:group {"style":{"spacing":{"padding":{"top":"1.5rem","right":"1.5rem","bottom":"1.5rem","left":"1.5rem"}},"border":{"width":"1px"}},"borderColor":"hairline","layout":{"type":"constrained"}} -->
+<div class="wp-block-group has-border-color has-hairline-border-color" style="border-width:1px;padding-top:1.5rem;padding-right:1.5rem;padding-bottom:1.5rem;padding-left:1.5rem"><!-- wp:heading {"level":3} -->
 <h3 class="wp-block-heading">Карта 2</h3>
 <!-- /wp:heading -->
 
@@ -110,8 +110,8 @@ function uspeh_register_section_patterns(): void {
 <!-- /wp:column -->
 
 <!-- wp:column -->
-<div class="wp-block-column"><!-- wp:group {"style":{"spacing":{"padding":{"top":"1.5rem","right":"1.5rem","bottom":"1.5rem","left":"1.5rem"}},"border":{"width":"1px"}},"borderColor":"border","layout":{"type":"constrained"}} -->
-<div class="wp-block-group has-border-color has-border-border-color" style="border-width:1px;padding-top:1.5rem;padding-right:1.5rem;padding-bottom:1.5rem;padding-left:1.5rem"><!-- wp:heading {"level":3} -->
+<div class="wp-block-column"><!-- wp:group {"style":{"spacing":{"padding":{"top":"1.5rem","right":"1.5rem","bottom":"1.5rem","left":"1.5rem"}},"border":{"width":"1px"}},"borderColor":"hairline","layout":{"type":"constrained"}} -->
+<div class="wp-block-group has-border-color has-hairline-border-color" style="border-width:1px;padding-top:1.5rem;padding-right:1.5rem;padding-bottom:1.5rem;padding-left:1.5rem"><!-- wp:heading {"level":3} -->
 <h3 class="wp-block-heading">Карта 3</h3>
 <!-- /wp:heading -->
 
@@ -925,19 +925,14 @@ function uspeh_register_page_starter_patterns(): void {
 
     register_block_pattern('uspeh/page-home', [
         'title'       => __('Страница: Начало (Gutenberg)', 'uspeh-filter'),
-        'description' => __('Стартово съдържание за начална страница в блокове', 'uspeh-filter'),
+        'description' => __('Пълна начална страница в блокове — hero, продуктови групи, приложения, производство, HEPA и CTA', 'uspeh-filter'),
         'categories'  => ['uspeh-starters'],
         'keywords'    => ['начало', 'home', 'homepage'],
-        'content'     => '<!-- wp:columns {"align":"wide"} -->
-<div class="wp-block-columns alignwide"><!-- wp:column -->
-<div class="wp-block-column"><!-- wp:image {"sizeSlug":"large"} -->
-<figure class="wp-block-image size-large"><img alt="Продуктов каталог"/></figure>
-<!-- /wp:image --></div>
-<!-- /wp:column -->
-
-<!-- wp:column -->
-<div class="wp-block-column"><!-- wp:paragraph -->
-<p><em>Чист въздух. Увереност.</em></p>
+        'content'     => '<!-- wp:group {"align":"full","style":{"spacing":{"padding":{"top":"3.5rem","bottom":"4rem"}}},"backgroundColor":"base-alt","layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignfull has-base-alt-background-color has-background" style="padding-top:3.5rem;padding-bottom:4rem"><!-- wp:columns {"verticalAlignment":"center","align":"wide"} -->
+<div class="wp-block-columns alignwide are-vertically-aligned-center"><!-- wp:column {"verticalAlignment":"center"} -->
+<div class="wp-block-column is-vertically-aligned-center"><!-- wp:paragraph {"className":"section__label"} -->
+<p class="section__label">ВИСОКОЕФЕКТИВНИ ПРОДУКТИ</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"level":1} -->
@@ -945,51 +940,81 @@ function uspeh_register_page_starter_patterns(): void {
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Професионални филтри за вентилация, климатизация, чисти помещения и индустрия — собствено производство в София.</p>
+<p>Професионални филтри за вентилация, климатизация, чисти помещения и индустрия — собствено производство в София от над 40 години.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:buttons -->
 <div class="wp-block-buttons"><!-- wp:button {"textColor":"base","backgroundColor":"accent"} -->
 <div class="wp-block-button"><a class="wp-block-button__link has-base-color has-accent-background-color has-text-color has-background wp-element-button" href="/vazdushni-filtri/">Разгледайте каталога</a></div>
+<!-- /wp:button -->
+
+<!-- wp:button {"className":"is-style-outline"} -->
+<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="/poiskaj-oferta/">Поискай оферта</a></div>
 <!-- /wp:button --></div>
 <!-- /wp:buttons --></div>
-<!-- /wp:column --></div>
-<!-- /wp:columns -->
+<!-- /wp:column -->
 
-<!-- wp:spacer {"height":"40px"} -->
-<div style="height:40px" aria-hidden="true" class="wp-block-spacer"></div>
-<!-- /wp:spacer -->
+<!-- wp:column {"verticalAlignment":"center"} -->
+<div class="wp-block-column is-vertically-aligned-center"><!-- wp:image {"sizeSlug":"large","align":"center"} -->
+<figure class="wp-block-image aligncenter size-large"><img alt="Филтри на Успех Филтър ССБ"/></figure>
+<!-- /wp:image --></div>
+<!-- /wp:column --></div>
+<!-- /wp:columns --></div>
+<!-- /wp:group -->
+
+<!-- wp:group {"style":{"spacing":{"padding":{"top":"4rem","bottom":"2rem"}}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group" style="padding-top:4rem;padding-bottom:2rem"><!-- wp:paragraph {"align":"center","className":"section__label"} -->
+<p class="has-text-align-center section__label">ПРОДУКТИ И УСЛУГИ</p>
+<!-- /wp:paragraph -->
 
 <!-- wp:heading {"textAlign":"center"} -->
 <h2 class="wp-block-heading has-text-align-center">Основни групи филтри</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"align":"center"} -->
-<p class="has-text-align-center">Груба и фина филтрация, HEPA решения и филтри за газове и специални процеси.</p>
+<p class="has-text-align-center">Производствената гама на Успех Филтър обхваща груба и фина филтрация, високоефективни HEPA решения и филтри за газове, миризми и специални процеси.</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:columns {"align":"wide"} -->
-<div class="wp-block-columns alignwide"><!-- wp:column -->
+<!-- wp:spacer {"height":"2rem"} -->
+<div style="height:2rem" aria-hidden="true" class="wp-block-spacer"></div>
+<!-- /wp:spacer -->
+
+<!-- wp:columns {"align":"wide","className":"uspeh-cards"} -->
+<div class="wp-block-columns alignwide uspeh-cards"><!-- wp:column -->
 <div class="wp-block-column"><!-- wp:heading {"level":3} -->
 <h3 class="wp-block-heading">Предфилтри</h3>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Панелни, таванни и джобни филтри за първа степен на очистване.</p>
+<p>Панелни, таванни и джобни филтри за първа степен на очистване. Класове G2–G4 по ISO 16890.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p><a href="/vazdushni-filtri/">+ Детайли</a></p>
+<p><a href="/vazdushni-filtri/predfitri/">+ Детайли</a></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column -->
 
 <!-- wp:column -->
 <div class="wp-block-column"><!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading">HEPA</h3>
+<h3 class="wp-block-heading">Фина филтрация</h3>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>EPA, HEPA и ULPA за чисти помещения, болници и фармация.</p>
+<p>Втора степен за климатични камери — джобни, Mini Pleat и компактни филтри от M5 до F9.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p><a href="/vazdushni-filtri/fini-filtri/">+ Детайли</a></p>
+<!-- /wp:paragraph --></div>
+<!-- /wp:column -->
+
+<!-- wp:column -->
+<div class="wp-block-column"><!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">EPA, HEPA, ULPA</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Крайна степен за болници, фармация и чисти помещения. Класове E10–U17 по EN 1822.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
@@ -999,23 +1024,176 @@ function uspeh_register_page_starter_patterns(): void {
 
 <!-- wp:column -->
 <div class="wp-block-column"><!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading">Двигателни</h3>
+<h3 class="wp-block-heading">Карбонови и специални</h3>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Въздушни, маслени и горивни филтри с онлайн каталог.</p>
+<p>Активен въглен за миризми и газове, филтри за прахови камери, сушилни и боядисване.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p><a href="/dvigatelni-filtri/">+ Детайли</a></p>
+<p><a href="/vazdushni-filtri/karbonovi/">+ Детайли</a></p>
 <!-- /wp:paragraph --></div>
+<!-- /wp:column --></div>
+<!-- /wp:columns --></div>
+<!-- /wp:group -->
+
+<!-- wp:group {"align":"full","style":{"spacing":{"padding":{"top":"4rem","bottom":"4rem"}}},"backgroundColor":"base-alt","layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignfull has-base-alt-background-color has-background" style="padding-top:4rem;padding-bottom:4rem"><!-- wp:columns {"verticalAlignment":"center","align":"wide"} -->
+<div class="wp-block-columns alignwide are-vertically-aligned-center"><!-- wp:column {"verticalAlignment":"center"} -->
+<div class="wp-block-column is-vertically-aligned-center"><!-- wp:paragraph {"className":"section__label"} -->
+<p class="section__label">ЗА НАС</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">Собствено производство в София</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Успех Филтър ССБ поддържа собствен производствен процес за въздушни, HEPA, карбонови и двигателни филтри — от филтърната материя до готовия продукт. Изпълняваме стандартни серии и нестандартни размери по задание.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item -->
+<li>Плисиране, сглобяване и контрол в собствена база</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>Изработка по размер, касета, рамка и клас на филтрация</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>Подходящо за болници, фармация, промишленост и специализирани производства</li>
+<!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:buttons -->
+<div class="wp-block-buttons"><!-- wp:button {"className":"is-style-outline"} -->
+<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="/proizvodstvo/">Виж производството</a></div>
+<!-- /wp:button --></div>
+<!-- /wp:buttons --></div>
+<!-- /wp:column -->
+
+<!-- wp:column {"verticalAlignment":"center"} -->
+<div class="wp-block-column is-vertically-aligned-center"><!-- wp:image {"sizeSlug":"large"} -->
+<figure class="wp-block-image size-large"><img alt="Производствена база в София"/></figure>
+<!-- /wp:image --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns -->
 
+<!-- wp:spacer {"height":"2.5rem"} -->
+<div style="height:2.5rem" aria-hidden="true" class="wp-block-spacer"></div>
+<!-- /wp:spacer -->
+
+<!-- wp:columns {"align":"wide"} -->
+<div class="wp-block-columns alignwide"><!-- wp:column -->
+<div class="wp-block-column"><!-- wp:heading {"level":3,"style":{"color":{"text":"#E85D2C"}}} -->
+<h3 class="wp-block-heading has-text-color" style="color:#E85D2C">40+</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"fontSize":"small"} -->
+<p class="has-small-font-size">години опит във филтрацията</p>
+<!-- /wp:paragraph --></div>
+<!-- /wp:column -->
+
+<!-- wp:column -->
+<div class="wp-block-column"><!-- wp:heading {"level":3,"style":{"color":{"text":"#E85D2C"}}} -->
+<h3 class="wp-block-heading has-text-color" style="color:#E85D2C">София</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"fontSize":"small"} -->
+<p class="has-small-font-size">собствена производствена база</p>
+<!-- /wp:paragraph --></div>
+<!-- /wp:column -->
+
+<!-- wp:column -->
+<div class="wp-block-column"><!-- wp:heading {"level":3,"style":{"color":{"text":"#E85D2C"}}} -->
+<h3 class="wp-block-heading has-text-color" style="color:#E85D2C">ISO 9001</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"fontSize":"small"} -->
+<p class="has-small-font-size">сертифицирана система за качество</p>
+<!-- /wp:paragraph --></div>
+<!-- /wp:column --></div>
+<!-- /wp:columns --></div>
+<!-- /wp:group -->
+
+<!-- wp:group {"style":{"spacing":{"padding":{"top":"4rem","bottom":"4rem"}}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group" style="padding-top:4rem;padding-bottom:4rem"><!-- wp:paragraph {"className":"section__label"} -->
+<p class="section__label">ФИЛТРАЦИЯ</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">EPA, HEPA и ULPA за обекти с високи изисквания</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Филтри за крайна степен на очистване на въздуха в болници, фармация, лаборатории, чисти помещения и технологични производства — с индивидуален сертификат за всеки продукт.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:columns {"align":"wide"} -->
+<div class="wp-block-columns alignwide"><!-- wp:column -->
+<div class="wp-block-column"><!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item -->
+<li>HEPA сепараторни филтри</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>HEPA mini-pleat филтри</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>HEPA високодебитни H14</li>
+<!-- /wp:list-item --></ul>
+<!-- /wp:list --></div>
+<!-- /wp:column -->
+
+<!-- wp:column -->
+<div class="wp-block-column"><!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item -->
+<li>EPA E10 – E12 и HEPA H13 – H14</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>ULPA U15 – U17</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>100% контрол — всеки филтър преминава изпитване</li>
+<!-- /wp:list-item --></ul>
+<!-- /wp:list --></div>
+<!-- /wp:column --></div>
+<!-- /wp:columns -->
+
+<!-- wp:buttons -->
+<div class="wp-block-buttons"><!-- wp:button {"textColor":"base","backgroundColor":"accent"} -->
+<div class="wp-block-button"><a class="wp-block-button__link has-base-color has-accent-background-color has-text-color has-background wp-element-button" href="/hepa-filtri/">Виж HEPA решенията</a></div>
+<!-- /wp:button --></div>
+<!-- /wp:buttons --></div>
+<!-- /wp:group -->
+
+<!-- wp:group {"align":"full","style":{"spacing":{"padding":{"top":"4rem","bottom":"4rem"}}},"backgroundColor":"contrast","textColor":"base","layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignfull has-base-color has-contrast-background-color has-text-color has-background" style="padding-top:4rem;padding-bottom:4rem"><!-- wp:paragraph {"align":"center","className":"section__label"} -->
+<p class="has-text-align-center section__label">КОНТАКТ</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"textAlign":"center"} -->
+<h2 class="wp-block-heading has-text-align-center">Търсите конкретен филтър или решение по задание?</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"align":"center"} -->
+<p class="has-text-align-center">Изпратете размери, снимка, каталожен номер или техническа спецификация. Търговският ни екип ще предложи подходяща филтрация за Вашия обект, машина или производство.</p>
+<!-- /wp:paragraph -->
+
 <!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} -->
 <div class="wp-block-buttons"><!-- wp:button {"textColor":"base","backgroundColor":"accent"} -->
-<div class="wp-block-button"><a class="wp-block-button__link has-base-color has-accent-background-color has-text-color has-background wp-element-button" href="/poiskaj-oferta/">Поискай оферта</a></div>
+<div class="wp-block-button"><a class="wp-block-button__link has-base-color has-accent-background-color has-text-color has-background wp-element-button" href="/poiskaj-oferta/">Изпрати запитване</a></div>
 <!-- /wp:button --></div>
-<!-- /wp:buttons -->',
+<!-- /wp:buttons -->
+
+<!-- wp:paragraph {"align":"center","fontSize":"small"} -->
+<p class="has-text-align-center has-small-font-size">Или се обадете: <a href="tel:+35929268833">+359 2 926 88 33</a></p>
+<!-- /wp:paragraph --></div>
+<!-- /wp:group -->',
     ]);
 }

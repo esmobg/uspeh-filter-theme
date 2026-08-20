@@ -16,9 +16,9 @@
                 { "slug": "base", "color": "#FFFFFF", "name": "Бял фон" },
                 { "slug": "base-alt", "color": "#F7F7F7", "name": "Сив фон" },
                 { "slug": "contrast", "color": "#052C4B", "name": "Тъмен фон" },
-                { "slug": "text", "color": "#4A4A4A", "name": "Текст" },
+                { "slug": "ink", "color": "#4A4A4A", "name": "Текст" },
                 { "slug": "text-light", "color": "#595959", "name": "Светъл текст" },
-                { "slug": "border", "color": "#E8E8E8", "name": "Бордюр" },
+                { "slug": "hairline", "color": "#E8E8E8", "name": "Бордюр" },
                 { "slug": "success", "color": "#2E7D32", "name": "Успех" },
                 { "slug": "error", "color": "#D32F2F", "name": "Грешка" }
             ],
@@ -84,7 +84,7 @@
     "styles": {
         "color": {
             "background": "var(--wp--preset--color--base)",
-            "text": "var(--wp--preset--color--text)"
+            "text": "var(--wp--preset--color--ink)"
         },
         "typography": {
             "fontFamily": "var(--wp--preset--font-family--body)",

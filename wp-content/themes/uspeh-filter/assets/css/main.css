@@ -12,10 +12,10 @@
     --color-bg: var(--wp--preset--color--base, #FFFFFF);
     --color-bg-alt: var(--wp--preset--color--base-alt, #F7F7F7);
     --color-bg-dark: var(--wp--preset--color--contrast, #052C4B);
-    --color-text: var(--wp--preset--color--text, #4A4A4A);
+    --color-text: var(--wp--preset--color--ink, #4A4A4A);
     --color-text-light: var(--wp--preset--color--text-light, #595959);
     --color-text-inverse: #FFFFFF;
-    --color-border: var(--wp--preset--color--border, #E8E8E8);
+    --color-border: var(--wp--preset--color--hairline, #E8E8E8);
     --color-border-light: #F0F0F0;
     --color-success: var(--wp--preset--color--success, #2E7D32);
     --color-warning: #F57C00;
@@ -769,13 +769,30 @@ h4 { font-size: 1.15rem; }
     padding-top: var(--section-pad);
     padding-bottom: var(--section-pad);
 }
-.wp-block-group.is-style-section-dark h1,
-.wp-block-group.is-style-section-dark h2,
-.wp-block-group.is-style-section-dark h3,
-.wp-block-group.is-style-section-dark h4 { color: var(--color-text-inverse); }
-.wp-block-group.is-style-section-dark a:not(.wp-block-button__link) { color: #fff; text-decoration: underline; }
-.wp-block-group.is-style-section-dark .section__label { color: rgba(255, 255, 255, 0.85); }
-.has-contrast-background-color .section__label { color: rgba(255, 255, 255, 0.85); }
+/* Тъмен фон: theme.json дава на всички заглавия primary-dark, което върху
+   тъмна секция е невидимо. Тук ги обръщаме заедно с връзките и етикетите. */
+:is(.has-contrast-background-color,
+    .has-primary-dark-background-color,
+    .wp-block-group.is-style-section-dark) :is(h1, h2, h3, h4, h5, h6) {
+    color: var(--color-text-inverse);
+}
+:is(.has-contrast-background-color,
+    .has-primary-dark-background-color,
+    .wp-block-group.is-style-section-dark) a:not(.wp-block-button__link) {
+    color: #fff;
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+}
+:is(.has-contrast-background-color,
+    .has-primary-dark-background-color,
+    .wp-block-group.is-style-section-dark) a:not(.wp-block-button__link):hover {
+    color: var(--color-accent-light);
+}
+:is(.has-contrast-background-color,
+    .has-primary-dark-background-color,
+    .wp-block-group.is-style-section-dark) .section__label {
+    color: rgba(255, 255, 255, 0.85);
+}
 
 .wp-block-button__link {
     font-family: var(--font-display);

@@ -14,10 +14,10 @@
     --color-bg: var(--wp--preset--color--base, #FFFFFF);
     --color-bg-alt: var(--wp--preset--color--base-alt, #F7F7F7);
     --color-bg-dark: var(--wp--preset--color--contrast, #052C4B);
-    --color-text: var(--wp--preset--color--text, #4A4A4A);
+    --color-text: var(--wp--preset--color--ink, #4A4A4A);
     --color-text-light: var(--wp--preset--color--text-light, #595959);
     --color-text-inverse: #FFFFFF;
-    --color-border: var(--wp--preset--color--border, #E8E8E8);
+    --color-border: var(--wp--preset--color--hairline, #E8E8E8);
     --gradient-accent: var(--wp--preset--gradient--accent-cta, linear-gradient(135deg, #E85D2C 0%, #E31C23 100%));
     --font-script: var(--wp--preset--font-family--script, 'Dancing Script', cursive);
     --font-display: var(--wp--preset--font-family--display, 'Montserrat', sans-serif);
@@ -82,9 +82,19 @@ a { color: var(--color-primary); text-decoration: none; }
 /* Секционни фонове (block styles за core/group) */
 .wp-block-group.is-style-section-alt { background: var(--color-bg-alt); }
 .wp-block-group.is-style-section-dark { background: var(--color-bg-dark); color: var(--color-text-inverse); }
-.wp-block-group.is-style-section-dark h2,
-.wp-block-group.is-style-section-dark h3,
-.wp-block-group.is-style-section-dark h4 { color: var(--color-text-inverse); }
+
+/* Тъмен фон: заглавията и връзките се обръщат, иначе остават невидими. */
+:is(.has-contrast-background-color,
+    .has-primary-dark-background-color,
+    .wp-block-group.is-style-section-dark) :is(h1, h2, h3, h4, h5, h6) {
+    color: var(--color-text-inverse);
+}
+:is(.has-contrast-background-color,
+    .has-primary-dark-background-color,
+    .wp-block-group.is-style-section-dark) a:not(.wp-block-button__link) {
+    color: #fff;
+    text-decoration: underline;
+}
 
 /* Карти в колони — леки визуални помощници за patterns */
 .wp-block-columns.uspeh-cards .wp-block-column {
