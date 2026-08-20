@@ -738,6 +738,10 @@ h4 { font-size: 1.15rem; }
 .is-block-layout > .alignwide { max-width: 1400px; }
 .is-block-layout > * + * { margin-top: 0; }
 .is-block-layout > * + :not(.alignfull) { margin-top: 2rem; }
+/* Пълноширинните секции носят собствен отстъп и опират до ръба;
+   останалите се нуждаят от дъх спрямо хедъра и футъра. */
+.is-block-layout > :first-child:not(.alignfull) { margin-top: var(--section-pad); }
+.is-block-layout > :last-child:not(.alignfull) { margin-bottom: var(--section-pad); }
 .is-block-layout .alignfull.is-layout-constrained > :not(.alignfull) {
     padding-left: var(--container-padding);
     padding-right: var(--container-padding);
@@ -866,6 +870,19 @@ h4 { font-size: 1.15rem; }
     box-shadow: var(--shadow);
     transform: translateY(-3px);
     border-color: var(--color-primary);
+}
+
+/* Лента с партньорски лога — приглушени, оцветяват се при посочване */
+.uspeh-logo-strip .wp-block-image img {
+    max-height: 56px;
+    width: auto;
+    filter: grayscale(1);
+    opacity: 0.6;
+    transition: filter var(--transition), opacity var(--transition);
+}
+.uspeh-logo-strip .wp-block-image img:hover {
+    filter: grayscale(0);
+    opacity: 1;
 }
 
 /* Custom logo (Външен вид → Персонализиране → Лого) */

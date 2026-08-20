@@ -10,6 +10,9 @@ function uspeh_register_content_patterns(): void {
         'label' => __('Успех Филтър — Съдържание', 'uspeh-filter'),
     ]);
 
+    // Изображение-заместител, за да не зеят празни блокове преди редакторът да качи своите.
+    $placeholder_logo = esc_url(USPEH_URI . '/assets/images/logo.png');
+
     register_block_pattern('uspeh/testimonials', [
         'title'       => __('Отзиви от клиенти', 'uspeh-filter'),
         'description' => __('Три цитата от клиенти в колони', 'uspeh-filter'),
@@ -59,36 +62,40 @@ function uspeh_register_content_patterns(): void {
         'title'       => __('Лента с партньори', 'uspeh-filter'),
         'description' => __('Ред с лога на клиенти/партньори', 'uspeh-filter'),
         'categories'  => ['uspeh-content'],
-        'content'     => '<!-- wp:group {"style":{"spacing":{"padding":{"top":"2.5rem","bottom":"2.5rem"}}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group" style="padding-top:2.5rem;padding-bottom:2.5rem"><!-- wp:paragraph {"align":"center","className":"section__label"} -->
+        'content'     => '<!-- wp:group {"style":{"spacing":{"padding":{"top":"2.5rem","bottom":"2.5rem"}}},"className":"uspeh-logo-strip","layout":{"type":"constrained"}} -->
+<div class="wp-block-group uspeh-logo-strip" style="padding-top:2.5rem;padding-bottom:2.5rem"><!-- wp:paragraph {"align":"center","className":"section__label"} -->
 <p class="has-text-align-center section__label">ДОВЕРИЕ ОТ ИНДУСТРИЯТА</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:columns {"verticalAlignment":"center","align":"wide","isStackedOnMobile":false} -->
 <div class="wp-block-columns alignwide are-vertically-aligned-center is-not-stacked-on-mobile"><!-- wp:column {"verticalAlignment":"center"} -->
-<div class="wp-block-column is-vertically-aligned-center"><!-- wp:image {"sizeSlug":"medium"} -->
-<figure class="wp-block-image size-medium"><img alt="Лого на партньор"/></figure>
+<div class="wp-block-column is-vertically-aligned-center"><!-- wp:image {"sizeSlug":"medium","align":"center"} -->
+<figure class="wp-block-image aligncenter size-medium"><img src="' . $placeholder_logo . '" alt="Лого на партньор"/></figure>
 <!-- /wp:image --></div>
 <!-- /wp:column -->
 
 <!-- wp:column {"verticalAlignment":"center"} -->
-<div class="wp-block-column is-vertically-aligned-center"><!-- wp:image {"sizeSlug":"medium"} -->
-<figure class="wp-block-image size-medium"><img alt="Лого на партньор"/></figure>
+<div class="wp-block-column is-vertically-aligned-center"><!-- wp:image {"sizeSlug":"medium","align":"center"} -->
+<figure class="wp-block-image aligncenter size-medium"><img src="' . $placeholder_logo . '" alt="Лого на партньор"/></figure>
 <!-- /wp:image --></div>
 <!-- /wp:column -->
 
 <!-- wp:column {"verticalAlignment":"center"} -->
-<div class="wp-block-column is-vertically-aligned-center"><!-- wp:image {"sizeSlug":"medium"} -->
-<figure class="wp-block-image size-medium"><img alt="Лого на партньор"/></figure>
+<div class="wp-block-column is-vertically-aligned-center"><!-- wp:image {"sizeSlug":"medium","align":"center"} -->
+<figure class="wp-block-image aligncenter size-medium"><img src="' . $placeholder_logo . '" alt="Лого на партньор"/></figure>
 <!-- /wp:image --></div>
 <!-- /wp:column -->
 
 <!-- wp:column {"verticalAlignment":"center"} -->
-<div class="wp-block-column is-vertically-aligned-center"><!-- wp:image {"sizeSlug":"medium"} -->
-<figure class="wp-block-image size-medium"><img alt="Лого на партньор"/></figure>
+<div class="wp-block-column is-vertically-aligned-center"><!-- wp:image {"sizeSlug":"medium","align":"center"} -->
+<figure class="wp-block-image aligncenter size-medium"><img src="' . $placeholder_logo . '" alt="Лого на партньор"/></figure>
 <!-- /wp:image --></div>
 <!-- /wp:column --></div>
-<!-- /wp:columns --></div>
+<!-- /wp:columns -->
+
+<!-- wp:paragraph {"align":"center","fontSize":"small"} -->
+<p class="has-text-align-center has-small-font-size">Заменете логата с тези на вашите клиенти и партньори.</p>
+<!-- /wp:paragraph --></div>
 <!-- /wp:group -->',
     ]);
 
@@ -295,44 +302,56 @@ function uspeh_register_content_patterns(): void {
 
 <!-- wp:columns {"align":"wide","className":"uspeh-cards"} -->
 <div class="wp-block-columns alignwide uspeh-cards"><!-- wp:column -->
-<div class="wp-block-column"><!-- wp:image {"sizeSlug":"medium"} -->
-<figure class="wp-block-image size-medium"><img alt="Портрет"/></figure>
-<!-- /wp:image -->
+<div class="wp-block-column"><!-- wp:paragraph {"className":"section__label"} -->
+<p class="section__label">УПРАВЛЕНИЕ</p>
+<!-- /wp:paragraph -->
 
 <!-- wp:heading {"level":4} -->
 <h4 class="wp-block-heading">Име Фамилия</h4>
 <!-- /wp:heading -->
 
+<!-- wp:paragraph -->
+<p>Управител. Отговаря за производствената програма и рамковите договори с клиенти.</p>
+<!-- /wp:paragraph -->
+
 <!-- wp:paragraph {"fontSize":"small"} -->
-<p class="has-small-font-size">Управител</p>
+<p class="has-small-font-size"><a href="mailto:info@uspehfilter.com">info@uspehfilter.com</a></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column -->
 
 <!-- wp:column -->
-<div class="wp-block-column"><!-- wp:image {"sizeSlug":"medium"} -->
-<figure class="wp-block-image size-medium"><img alt="Портрет"/></figure>
-<!-- /wp:image -->
+<div class="wp-block-column"><!-- wp:paragraph {"className":"section__label"} -->
+<p class="section__label">ПРОИЗВОДСТВО</p>
+<!-- /wp:paragraph -->
 
 <!-- wp:heading {"level":4} -->
 <h4 class="wp-block-heading">Име Фамилия</h4>
 <!-- /wp:heading -->
 
+<!-- wp:paragraph -->
+<p>Ръководител производство. Води разработката на филтри по индивидуален размер и контрола на качеството.</p>
+<!-- /wp:paragraph -->
+
 <!-- wp:paragraph {"fontSize":"small"} -->
-<p class="has-small-font-size">Ръководител производство</p>
+<p class="has-small-font-size"><a href="mailto:info@uspehfilter.com">info@uspehfilter.com</a></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column -->
 
 <!-- wp:column -->
-<div class="wp-block-column"><!-- wp:image {"sizeSlug":"medium"} -->
-<figure class="wp-block-image size-medium"><img alt="Портрет"/></figure>
-<!-- /wp:image -->
+<div class="wp-block-column"><!-- wp:paragraph {"className":"section__label"} -->
+<p class="section__label">ТЪРГОВСКИ ОТДЕЛ</p>
+<!-- /wp:paragraph -->
 
 <!-- wp:heading {"level":4} -->
 <h4 class="wp-block-heading">Име Фамилия</h4>
 <!-- /wp:heading -->
 
+<!-- wp:paragraph -->
+<p>Търговски консултант. Изготвя оферти и подбира филтърен клас според заданието на обекта.</p>
+<!-- /wp:paragraph -->
+
 <!-- wp:paragraph {"fontSize":"small"} -->
-<p class="has-small-font-size">Търговски отдел</p>
+<p class="has-small-font-size"><a href="mailto:info@uspehfilter.com">info@uspehfilter.com</a></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns --></div>
